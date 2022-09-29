@@ -1,0 +1,54 @@
+<div class="a5-page-container">
+  <div class="header">
+    <div class="panel notes">
+      <h3 class="notes__title">Notes</h3>
+      <div class="notes__body">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+        dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+      </div>
+    </div>
+    <div class="panel summary-items">
+      <h3 class="summary-items__title">Info</h3>
+
+        <div class="servings summary-item__title">
+          Servings:
+        </div>
+        <div class="servings summary-item__value">
+          6
+        </div>
+        <div class="prep-time summary-item__title">
+          Prep time:
+        </div>
+        <div class="prep-time summary-item__value">
+          30 minutes
+        </div>
+
+        <div class="cook-time summary-item__title">
+          Cook time:
+        </div>
+
+        <div class="cook-time summary-item__value">
+          60 minutes
+        </div>
+    </div>
+    <h1 class="title">Swedish meatballs</h1>
+    <div class="tags">
+      <div *ngFor="let tag of tags" class="tag">
+        {{tag}}
+      </div>
+    </div>
+  </div>
+  <div class="recipe-body">
+    <div class="panel ingredients">
+      <h3>Ingredienten</h3>
+      <div *ngFor="let ingredient of ingredients">{{ingredient}}</div>
+    </div>
+    <div class="panel steps">
+      <h3>Bereiden</h3>
+      <div *ngFor="let step of steps; let i = index">{{i+1}}. {{step}}</div>
+    </div>
+  </div>
+  <div class="recipe-footer">
+  </div>
+</div>
