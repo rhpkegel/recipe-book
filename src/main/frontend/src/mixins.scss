@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+
+@mixin styledButton {
+  padding: 1rem;
+  background: mat.get-color-from-palette(mat.$light-blue-palette, 50);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+  color: mat.get-color-from-palette(mat.$light-blue-palette, 700);
+  &:hover {
+    background: mat.get-color-from-palette(mat.$light-blue-palette, 100);
+  }
+  &:active {
+    background: mat.get-color-from-palette(mat.$light-blue-palette, 200);
+  }
+}
+

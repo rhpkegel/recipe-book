@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {exampleRecipe, Recipe} from "./recipe.model";
+import {ResizedEvent} from "angular-resize-event";
 
 @Component({
   selector: 'app-recipe-page',
@@ -9,9 +10,24 @@ import {exampleRecipe, Recipe} from "./recipe.model";
 export class RecipePageComponent implements OnInit {
   @Input()
   public recipe: Recipe = exampleRecipe;
+  @Input()
+  public width: number = 50;
+  public fontSize: number = 16;
+
+  public get containerWidth(): string{
+    return `${this.width}vw`;
+  };
+
+  public get containerFontSize(): string{
+    return `${this.fontSize}px`
+  }
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+  }
+
+  public onPageResize($event: ResizedEvent) {
+    this.fontSize = $event.newRect.width/50;
   }
 }

@@ -1,10 +1,15 @@
-<div class="a5-page-container">
+<div class="a5-page-container"
+     [ngStyle]="{
+      width: containerWidth,
+      fontSize: fontSize+'px'
+     }"
+     (resized)="onPageResize($event)">
   <div class="ingredient-background"></div>
   <div class="step-background">
     <div class="gray-bar"></div>
   </div>
   <div class="header">
-    <div class="title">{{recipe.title}}</div>
+    <div class="title" [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title}}</div>
     <div class="time" *ngIf = "recipe.cookTimeMinutes || recipe.prepTimeMinutes">
       <div class="prep-time">Prep time: {{recipe.prepTimeMinutes ? recipe.prepTimeMinutes : '-'}} min</div>
       <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes : '-'}} min</div>
@@ -15,7 +20,7 @@
   <div class="ingredients">
     <ng-container *ngFor="let ingredientSublist of recipe.ingredients">
       <div class="ingredient-sublist">
-        <div class="ingredient-sublist__title">
+        <div class="ingredient-sublist__title" [ngStyle]="{fontSize: fontSize*1.5+'px'}">
           {{ingredientSublist.name}}
         </div>
           <div class="ingredient" *ngFor="let ingredient of ingredientSublist.ingredients">{{ingredient.amount}} {{ingredient | formatUnit}} {{ingredient.name}}</div>
@@ -29,6 +34,6 @@
   </div>
   <div *ngIf="recipe.notes" class="chefs-notes">
     <div class="chefs-notes__content">{{recipe.notes}}</div>
-    <div class="chefs-notes__background">Chef's notes</div>
+    <div class="chefs-notes__background" [ngStyle]="{fontSize: fontSize*2+'px'}">Chef's notes</div>
   </div>
 </div>

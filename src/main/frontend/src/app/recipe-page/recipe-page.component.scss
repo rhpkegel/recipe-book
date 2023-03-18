@@ -1,6 +1,5 @@
 .a5-page-container {
   position: relative;
-  width: 50rem;
   border: 0.1rem darkgray solid;
   aspect-ratio: 148/210;
   padding: 0.5rem;
@@ -8,7 +7,7 @@
   border-radius: 0.25rem;
 
   display: grid;
-  grid-template-rows: 10rem auto 10rem;
+  grid-template-rows: min-content auto min-content;
   grid-template-columns: 1fr 2fr;
 
   .header{
@@ -23,8 +22,6 @@
       grid-row: 1;
       grid-column: 1/span 2;
       white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
       font-family: "Georgia", serif;
       font-weight: 600;
       font-size: 2rem;
@@ -49,8 +46,8 @@
     margin: auto 1rem 1rem;
     background: lightgray;
     position: relative;
+    border-radius: 4px;
     width: 75%;
-    height: 4rem;
 
     &__content {
       z-index: 1;
