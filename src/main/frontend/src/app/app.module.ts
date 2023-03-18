@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { FormatUnitPipe } from './recipe-page/format-unit.pipe';
+import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipePageComponent,
-    FormatUnitPipe
+    FormatUnitPipe,
+    RecipeEditorComponent
   ],
   imports: [
     BrowserModule,
