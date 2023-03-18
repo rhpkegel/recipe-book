@@ -8,7 +8,7 @@ import {exampleRecipe, Recipe} from "../recipe-page/recipe.model";
 })
 export class RecipeEditorComponent implements OnInit {
   public recipe: Recipe = exampleRecipe;
-  public recipeWidth = 50;
+  public recipeWidth = 90;
   constructor() { }
 
   ngOnInit(): void {

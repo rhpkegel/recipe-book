@@ -1,6 +1,6 @@
 <div class="zoom-controls">
-  <button (click)="zoomInRecipe()"><ng-icon name="heroMagnifyingGlassPlus"></ng-icon></button>
-  <button (click)="zoomOutRecipe()"><ng-icon name="heroMagnifyingGlassMinus"></ng-icon></button>
+  <button [disabled]="recipeWidth >= 90" (click)="zoomInRecipe()"><ng-icon name="heroMagnifyingGlassPlus"></ng-icon></button>
+  <button [disabled]="recipeWidth <= 30" (click)="zoomOutRecipe()"><ng-icon name="heroMagnifyingGlassMinus"></ng-icon></button>
 </div>
 <div class="container">
 <div class="content">
