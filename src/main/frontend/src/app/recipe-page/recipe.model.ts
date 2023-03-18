@@ -5,7 +5,7 @@ export interface Recipe {
   title: string;
   tags?: string[];
   steps?: string[];
-  ingredients: Ingredient[] | IngredientSublist[];
+  ingredients: IngredientSublist[];
   servings?: number;
   prepTimeMinutes?: number;
   cookTimeMinutes?: number;

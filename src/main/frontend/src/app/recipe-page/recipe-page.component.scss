@@ -4,131 +4,101 @@
   border: 0.1rem darkgray solid;
   aspect-ratio: 148/210;
   padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
   box-shadow: rgba(black, 0.1) 0.25rem 0.25rem 0.75rem;
   border-radius: 0.25rem;
 
-  .header {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 15rem min-content min-content;
-    grid-gap: 1rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-rows: 10rem auto 10rem;
+  grid-template-columns: 1fr 2fr;
 
-    .notes {
-      overflow: hidden;
-      &__title{
-        font-size: 1.5rem;
-      }
-      &__body{
-        display: block;
-        overflow: hidden;
-      }
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .summary-items {
-      grid-column: 2;
-      grid-row: 1;
-      display: grid;
-      grid-template-columns: min-content 1fr;
-      grid-template-rows: repeat(4, min-content);
-      grid-column-gap: 0.5rem;
-      grid-row-gap:0.5rem;
-
-      &__title{
-        grid-row: 1;
-        grid-column: 1/span 2;
-      }
-      .servings{
-        grid-row: 2;
-      }
-      .prep-time{
-        grid-row:3;
-      }
-      .cook-time{
-        grid-row:4;
-      }
-
-      .summary-item{
-        &__title{
-          white-space: nowrap;
-          grid-column: 1;
-        }
-        &__value{
-          grid-column: 2;
-        }
-      }
-    }
+  .header{
+    z-index: 1;
+    grid-area: 1/1/1/3;
+    margin: 1rem;
+    padding: 1rem;
+    background: black;
+    color: white;
+    display: grid;
     .title{
-      display: flex;
+      grid-row: 1;
       grid-column: 1/span 2;
-      grid-row: 2;
-      width: min-content;
-      justify-self: center;
-      padding: 0.5rem 2rem;
-      border-radius: 0.5rem;
       white-space: nowrap;
-      color: #6aa7ff;
-      background: #e4eeff;
-      border: 0.1rem solid #c3d8ff;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-family: "Georgia", serif;
+      font-weight: 600;
+      font-size: 2rem;
     }
-    .tags{
-      grid-column: 1/span 2;
-      grid-row: 3;
-      display: flex;
-      gap:0.5rem;
-      .tag{
-        background: rgba(45,153,127,0.1);
-      }
-    }
-  }
-  .recipe-body{
-    display: flex;
-    width: 100%;
-    flex-grow: 1;
-    gap: 0.5rem;
-    .ingredients{
-      width: 30%;
-      .category{
-        .ingredient{
-
-        }
-      }
-    }
-    .steps{
-      width: 70%;
+    .time{
+      grid-row: 2;
+      grid-column: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+    }
+    .tags{
+      grid-row: 2;
+      grid-column: 2;
+      text-align: end;
+      margin-top: auto;
     }
   }
+  .chefs-notes{
+    z-index: 1;
+    grid-area: 3/1/3/3;
+    padding: 1rem;
+    margin: auto 1rem 1rem;
+    background: lightgray;
+    position: relative;
+    width: 75%;
+    height: 4rem;
 
-  .recipe-footer{
-    height: 2rem;
-    border-top: #a9a9a9 1px solid;
+    &__content {
+      z-index: 1;
+      position: relative;
+    }
+    &__background{
+      z-index: -1;
+      right: 1rem;
+      bottom: 1rem;
+      color: white;
+      font-family: "Georgia", serif;
+      font-weight: 600;
+      font-size: 2rem;
+      position: absolute;
+    }
   }
-}
-
-.panel{
-  padding: 0.5rem;
-  background: #f3f3f3;
-  border-radius: 0.25rem;
-}
-
-h1{
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0;
-  margin-top:10rem;
-}
-
-h3{
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+  .ingredients{
+    grid-area: 2/1/2/1;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .ingredient-sublist{
+      &__title{
+        font-weight: bolder;
+        font-size: 1.25rem;
+        font-family: "Georgia", serif;
+      }
+    }
+  }
+  .steps{
+    grid-area: 2/2/2/2;
+    margin: 1rem 1rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .ingredient-background{
+    background: darkgray;
+    grid-area: 1/1/4/1;
+  }
+  .step-background{
+    grid-area: 1/2/4/2;
+    .gray-bar{
+      background: darkgray;
+      height: 100%;
+      width: 1rem;
+      margin-left: 1rem;
+    }
+  }
 }

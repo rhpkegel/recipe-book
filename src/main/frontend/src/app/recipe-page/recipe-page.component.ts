@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {exampleRecipe, Recipe} from "./recipe.model";
 
 @Component({
   selector: 'app-recipe-page',
@@ -6,13 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipe-page.component.scss']
 })
 export class RecipePageComponent implements OnInit {
-  public tags: string[] = ['lekker', 'hoofdgerecht'];
-  public ingredients: string[] = ['500g suiker', '50g boter'];
-  steps: string[] = ['mixen', 'bakken', 'eten'];
+  public recipe: Recipe = exampleRecipe;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
