@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {exampleRecipe, Recipe} from "../recipe-page/recipe.model";
+import {MatDialog} from "@angular/material/dialog";
+import {RecipeEditDialogComponent} from "./recipe-edit-dialog/recipe-edit-dialog.component";
 
 @Component({
   selector: 'app-recipe-editor',
@@ -10,9 +12,13 @@ export class RecipeEditorComponent implements OnInit {
   public recipe: Recipe = exampleRecipe;
   public recipeWidth = 50;
   doublePage: boolean = false;
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    const dialogRef = this.dialog.open(RecipeEditDialogComponent, {data: this.recipe})
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('closed the dialog with data: ', result)
+    })
   }
 
   zoomInRecipe(){
