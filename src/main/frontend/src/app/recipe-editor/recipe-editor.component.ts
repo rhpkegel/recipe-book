@@ -8,7 +8,8 @@ import {exampleRecipe, Recipe} from "../recipe-page/recipe.model";
 })
 export class RecipeEditorComponent implements OnInit {
   public recipe: Recipe = exampleRecipe;
-  public recipeWidth = 90;
+  public recipeWidth = 50;
+  doublePage: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -19,5 +20,18 @@ export class RecipeEditorComponent implements OnInit {
   }
   zoomOutRecipe(){
     this.recipeWidth -= 10;
+  }
+
+  printRecipe(){
+    this.recipeWidth=50;
+    this.doublePage=true;
+    setTimeout(()=>window.print());
+  }
+
+  doublePageToggle() {
+    this.doublePage = !this.doublePage;
+    if (this.doublePage && this.recipeWidth > 50){
+      this.recipeWidth = 50;
+    }
   }
 }

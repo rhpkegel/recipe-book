@@ -1,19 +1,31 @@
 <div class="zoom-controls">
-  <button [disabled]="recipeWidth >= 90" (click)="zoomInRecipe()"><ng-icon name="heroMagnifyingGlassPlus"></ng-icon></button>
-  <button [disabled]="recipeWidth <= 30" (click)="zoomOutRecipe()"><ng-icon name="heroMagnifyingGlassMinus"></ng-icon></button>
+  <div class="sticky-container">
+    <button [disabled]="(recipeWidth >= 50 && doublePage) || (recipeWidth >= 100)" (click)="zoomInRecipe()">
+      <ng-icon name="heroMagnifyingGlassPlus"></ng-icon>
+    </button>
+    <button [disabled]="recipeWidth <= 20" (click)="zoomOutRecipe()">
+      <ng-icon name="heroMagnifyingGlassMinus"></ng-icon>
+    </button>
+    <button (click)="doublePageToggle()">
+      <ng-icon name="heroBookOpen"></ng-icon>
+    </button>
+  </div>
 </div>
 <div class="container">
-<div class="content">
-  <app-recipe-page
-    [recipe]="recipe"
-    [width]="recipeWidth"
-  ></app-recipe-page>
-</div>
-<div class="footer">
-  <button>New recipe</button>
-  <button>Edit recipe</button>
-  <button>Load from disk</button>
-  <button>Save to disk</button>
-  <button>Print</button>
-</div>
+  <div class="content">
+    <app-recipe-page
+      [recipe]="recipe"
+      [width]="recipeWidth"
+    ></app-recipe-page>
+    <app-recipe-page *ngIf="doublePage"
+                     [width]="recipeWidth"
+    ></app-recipe-page>
+  </div>
+  <div class="footer">
+    <button>New recipe</button>
+    <button>Edit recipe</button>
+    <button>Load from disk</button>
+    <button>Save to disk</button>
+    <button (click)="printRecipe()">Print</button>
+  </div>
 </div>

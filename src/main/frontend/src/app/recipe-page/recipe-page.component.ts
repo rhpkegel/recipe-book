@@ -1,15 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {exampleRecipe, Recipe} from "./recipe.model";
 import {ResizedEvent} from "angular-resize-event";
 
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
-  styleUrls: ['./recipe-page.component.scss']
+  styleUrls: ['./recipe-page.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RecipePageComponent implements OnInit {
   @Input()
-  public recipe: Recipe = exampleRecipe;
+  public recipe: Recipe | undefined;
   @Input()
   public width: number = 50;
   public fontSize: number = 16;
