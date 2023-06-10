@@ -115,6 +115,13 @@
       margin-left: 1rem;
     }
   }
+
+  .selectable:hover{
+    background-color: #eeeeff;
+    &:active{
+      background-color: #c6cbff;
+    }
+  }
 }
 
 @media print {

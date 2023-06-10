@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Kooktijden aanpassen</h2>
+<mat-dialog-content>
+  <div class="content-container">
+    <div *ngFor="let tag of form.controls; let i = index" class="line">
+    <mat-form-field appearance="outline" subscriptSizing = dynamic>
+      <mat-label>Tag Name</mat-label>
+      <input type="text" [formControl]="tag" matInput>
+    </mat-form-field>
+      <button tabindex="-1" mat-icon-button (click)="form.removeAt(i)">
+        <ng-icon name="heroXMark"></ng-icon>
+      </button>
+    </div>
+    <button (click)="addTag()" class="add-tag" color="primary" mat-fab>+</button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button tabindex="-1" mat-button (click)=onCancel()>Annuleren</button>
+  <button tabindex="-1" mat-button (click)=onAccept()>Aanpassen</button>
+</mat-dialog-actions>

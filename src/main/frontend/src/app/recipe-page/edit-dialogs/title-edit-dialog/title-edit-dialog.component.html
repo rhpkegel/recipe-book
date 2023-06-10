@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Titel aanpassen</h2>
+<mat-dialog-content>
+  <div class="content-container">
+  <mat-form-field appearance="outline">
+  <mat-label>Titel</mat-label>
+    <input [(ngModel)]="title" matInput placeholder="Titel">
+  </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button tabindex="-1" mat-button [mat-dialog-close]="this.data.title">Annuleren</button>
+  <button tabindex="-1" mat-button [mat-dialog-close]="title">Aanpassen</button>
+</mat-dialog-actions>

@@ -1,0 +1,30 @@
+mat-dialog-actions{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-container{
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.line{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.add-tag{
+  margin-top: 1rem;
+}
+
+mat-dialog-content{
+  max-height: 80vh;
+}

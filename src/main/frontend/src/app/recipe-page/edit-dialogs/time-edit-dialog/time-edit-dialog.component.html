@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Kooktijden aanpassen</h2>
+<mat-dialog-content>
+  <div class="content-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Cook time</mat-label>
+      <input type="number" [formControl]="form.controls.cook" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Prep time</mat-label>
+      <input type="number" [formControl]="form.controls.prep" matInput>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button tabindex="-1" mat-button (click)=onCancel()>Annuleren</button>
+  <button tabindex="-1" mat-button (click)=onAccept()>Aanpassen</button>
+</mat-dialog-actions>
