@@ -26,7 +26,7 @@
         min
       </div>
     </div>
-    <div (click)="openTagDialog()" class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags?.join(', ') : '-'}}</div>
+    <div (click)="openTagDialog()" class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
   </div>
   <div class="recipe-content">
     <div (click)="openIngredientsDialog()" class="ingredients selectable">

@@ -1,7 +1,19 @@
 import {Component, HostListener, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder} from "@angular/forms";
-import {TimeModel} from "../time-edit-dialog/time-edit-dialog.component";
+import {Form, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {Ingredient, IngredientSublist} from "../../ingredient.model";
+import {MeasurementUnit, unitShortNames} from "../../measurement-unit.model";
+
+
+interface IngredientSubListForm {
+  name: FormControl<string | null>;
+  ingredients: FormArray<FormGroup<IngredientForm>>;
+}
+interface IngredientForm {
+  name: FormControl<string | null>;
+  amount: FormControl<number | null>;
+  unit: FormControl<MeasurementUnit | null>;
+}
 
 @Component({
   selector: 'app-ingredient-edit-dialog',
@@ -9,21 +21,66 @@ import {TimeModel} from "../time-edit-dialog/time-edit-dialog.component";
   styleUrls: ['./ingredient-edit-dialog.component.scss']
 })
 export class IngredientEditDialogComponent {
-  public form = this.fb.group(this.data);
-
+  public form = new FormArray<FormGroup<IngredientSubListForm>>([]);
   @HostListener('document:keydown.enter', ['$event'])
-  public onEnter() {
+  public onAccept(): void {
     this.dialogRef.close(this.form.value);
   }
 
   @HostListener('document:keydown.escape', ['$event'])
-  public onEscape() {
-    this.dialogRef.close(this.data)
+  public onCancel(): void {
+    this.dialogRef.close(this.data);
   }
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: TimeModel) {
+  get unitOptions(): string[]{
+    return Object.keys(unitShortNames);
+  }
+
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IngredientSublist[]) {
     this.dialogRef.backdropClick().subscribe(result => {
       this.dialogRef.close(this.data);
     });
+    this.initializeForm();
+  }
+
+  private initializeForm(): void {
+    this.data.forEach(subList => {
+      this.form.push(this.initializeSubListForm(subList))
+    })
+  }
+
+  private initializeSubListForm(sublist: IngredientSublist): FormGroup<IngredientSubListForm>{
+    let ingredientForms: FormGroup<IngredientForm>[] = sublist.ingredients.map(ingredient => this.initializeIngredientForm(ingredient));
+    if (ingredientForms.length == 0){
+      ingredientForms = [this.initializeIngredientForm({name:''})]
+    }
+    return new FormGroup({
+      name: new FormControl<string|null>(sublist.name ? sublist.name : ''),
+      ingredients: new FormArray(ingredientForms)
+    })
+  }
+
+  private initializeIngredientForm(ingredient: Ingredient): FormGroup<IngredientForm> {
+    return new FormGroup<IngredientForm>({
+      name: new FormControl<string | null>(ingredient.name),
+      amount: new FormControl<number |null>(ingredient.amount? ingredient.amount : null),
+      unit: new FormControl<MeasurementUnit | null>(ingredient.unit ? ingredient.unit : null),
+    })
+  }
+
+  removeIngredient(subListIndex:number, ingredientIndex: number) {
+    this.form.controls[subListIndex].controls.ingredients.removeAt(ingredientIndex);
+  }
+
+  addIngredient(sublistIndex: number, ingredientIndex: number, after=true) {
+    this.form.controls[sublistIndex].controls.ingredients.insert(after ? ingredientIndex+1 : ingredientIndex, this.initializeIngredientForm({name:''}))
+  }
+
+  removeSublist(subListIndex: number){
+    this.form.removeAt(subListIndex);
+  }
+
+  addSublist(sublistIndex: number, after=true) {
+   this.form.insert(after ? sublistIndex+1 : sublistIndex, this.initializeSubListForm({name: '', ingredients: []}))
   }
 }

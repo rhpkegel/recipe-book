@@ -1,1 +1,74 @@
-<p>ingredient-edit-dialog works!</p>
+<h2 mat-dialog-title>Ingredienten aanpassen</h2>
+<mat-dialog-content>
+  <div class="content-container">
+    <div *ngFor="let sublist of form.controls; let sublistIndex = index" class="ingredient-sublist">
+      <mat-divider></mat-divider>
+      <button (click)="addSublist(sublistIndex, false)" tabindex="-1" mat-button *ngIf="sublistIndex==0">Nieuwe sublijst
+        boven...
+      </button>
+      <div class="ingredient-sublist__header">
+        <mat-form-field appearance="outline" subscriptSizing=dynamic>
+          <mat-label>Ingredienten Subheader</mat-label>
+          <input type="text" [formControl]="sublist.controls.name" matInput>
+        </mat-form-field>
+        <button (click)="removeSublist(sublistIndex)" tabindex="-1" mat-icon-button>
+          <ng-icon name="heroXMark"></ng-icon>
+        </button>
+      </div>
+      <div class="ingredient-sublist__ingredients">
+        <ng-container *ngFor="let ingredientForm of sublist.controls.ingredients.controls; let ingredientIndex = index">
+          <ng-container
+            *ngTemplateOutlet="ingredientFormTemplate; context: {ingredientForm, ingredientIndex, sublistIndex, disableRemove: sublist.controls.ingredients.length < 2}"></ng-container>
+        </ng-container>
+      </div>
+      <button (click)="addSublist(sublistIndex)" tabindex="-1" mat-button>Nieuwe sublijst onder...</button>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button tabindex="-1" mat-button (click)=onCancel()>Annuleren</button>
+  <button tabindex="-1" mat-button (click)=onAccept()>Aanpassen</button>
+</mat-dialog-actions>
+
+<ng-template #ingredientFormTemplate
+             let-ingredientForm='ingredientForm'
+             let-sublistIndex='sublistIndex'
+             let-ingredientIndex='ingredientIndex'
+             let-disableRemove='disableRemove'>
+  <div class="ingredient">
+    <mat-form-field class="ingredient__name" appearance="outline" subscriptSizing=dynamic>
+      <mat-label>Naam</mat-label>
+      <input type="text" [formControl]="ingredientForm.controls.name" matInput>
+    </mat-form-field>
+    <mat-form-field class="ingredient__amount" appearance="outline" subscriptSizing=dynamic>
+      <mat-label>Hoeveelheid</mat-label>
+      <input type="number" [formControl]="ingredientForm.controls.amount" placeholder="-" matInput>
+    </mat-form-field>
+    <mat-form-field class="ingredient__unit" appearance="outline" subscriptSizing=dynamic>
+      <mat-label>Type</mat-label>
+      <mat-select [formControl]="ingredientForm.controls.unit" name="unit">
+        <mat-option *ngFor="let unit of unitOptions" [value]="unit">
+          {{unit}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="ingredient__controls">
+      <button [disabled]="disableRemove" (click)="removeIngredient(sublistIndex, ingredientIndex)
+      " mat-icon-button>
+      <ng-icon name="heroXMark"></ng-icon>
+      </button>
+      <div class="ingredient__controls__insert">
+        <button (click)="addIngredient(sublistIndex, ingredientIndex, false)" mat-button>
+          <ng-icon name="heroPlus"></ng-icon>
+          <ng-icon name="heroChevronUp"></ng-icon>
+        </button>
+        <button (click)="addIngredient(sublistIndex, ingredientIndex)" mat-button>
+          <ng-icon name="heroPlus"></ng-icon>
+          <ng-icon name="heroChevronDown"></ng-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
