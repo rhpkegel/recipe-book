@@ -3,11 +3,11 @@
   <div class="content-container">
   <mat-form-field appearance="outline">
   <mat-label>Titel</mat-label>
-    <input [(ngModel)]="title" matInput placeholder="Titel">
+    <input [formControl]="form" matInput placeholder="Titel">
   </mat-form-field>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button tabindex="-1" mat-button [mat-dialog-close]="this.data.title">Annuleren</button>
-  <button tabindex="-1" mat-button [mat-dialog-close]="title">Aanpassen</button>
+  <button tabindex="-1" (click)="onCancel()" mat-button>Annuleren</button>
+  <button tabindex="-1" (click)="onAccept()" mat-button>Aanpassen</button>
 </mat-dialog-actions>

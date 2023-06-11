@@ -47,9 +47,7 @@ export class RecipePageComponent implements OnInit {
   openTitleDialog() {
     this.activeDialogRef = this.dialog.open(TitleEditDialogComponent, {
       width: '30rem',
-      data: {
-        title: this.recipe?.title
-      }
+      data: this.recipe ? this.recipe?.title : ''
     });
     this.activeDialogRef.afterClosed().subscribe((newTitle: string) => {
       if (this.recipe) {
@@ -62,14 +60,14 @@ export class RecipePageComponent implements OnInit {
     this.activeDialogRef = this.dialog.open(TimeEditDialogComponent, {
       width: '30rem',
       data: {
-        prep: this.recipe?.prepTimeMinutes,
-        cook: this.recipe?.cookTimeMinutes
+        cookTime: this.recipe?.cookTimeMinutes,
+        servings: this.recipe?.servings
       }
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: TimeModel) => {
       if (this.recipe) {
-        this.recipe.prepTimeMinutes = returnData.prep;
-        this.recipe.cookTimeMinutes = returnData.cook;
+        this.recipe.cookTimeMinutes = returnData.cookTime;
+        this.recipe.servings = returnData.servings;
       }
     });
   }

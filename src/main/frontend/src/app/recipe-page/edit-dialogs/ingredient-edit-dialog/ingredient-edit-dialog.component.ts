@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Form, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Ingredient, IngredientSublist} from "../../ingredient.model";
 import {MeasurementUnit, unitShortNames} from "../../measurement-unit.model";
+import {BaseEditDialogDirective} from "../base-edit-dialog.directive";
 
 
 interface IngredientSubListForm {
@@ -20,26 +21,15 @@ interface IngredientForm {
   templateUrl: './ingredient-edit-dialog.component.html',
   styleUrls: ['./ingredient-edit-dialog.component.scss']
 })
-export class IngredientEditDialogComponent {
+export class IngredientEditDialogComponent extends BaseEditDialogDirective<IngredientEditDialogComponent, IngredientSublist[]>{
   public form = new FormArray<FormGroup<IngredientSubListForm>>([]);
-  @HostListener('document:keydown.enter', ['$event'])
-  public onAccept(): void {
-    this.dialogRef.close(this.form.value);
-  }
-
-  @HostListener('document:keydown.escape', ['$event'])
-  public onCancel(): void {
-    this.dialogRef.close(this.data);
-  }
 
   get unitOptions(): string[]{
     return Object.keys(unitShortNames);
   }
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IngredientSublist[]) {
-    this.dialogRef.backdropClick().subscribe(result => {
-      this.dialogRef.close(this.data);
-    });
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IngredientSublist[]) {
+    super(dialogRef, data);
     this.initializeForm();
   }
 

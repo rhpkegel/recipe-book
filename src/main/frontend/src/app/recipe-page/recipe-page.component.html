@@ -19,12 +19,8 @@
   <div class="header">
     <div class="title selectable" (click)="openTitleDialog()" [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}</div>
     <div class="time selectable" (click)="openTimeDialog()">
-      <div class="prep-time">Prep time: {{recipe.prepTimeMinutes ? recipe.prepTimeMinutes : '-'}} min</div>
-      <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes : '-'}} min</div>
-      <div class="total-time">Total
-        time: {{(recipe.prepTimeMinutes ? recipe.prepTimeMinutes : 0) + (recipe.cookTimeMinutes ? recipe.cookTimeMinutes : 0)}}
-        min
-      </div>
+      <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes+' min' : '-'}}</div>
+      <div class="servings">Servings: {{recipe.servings ? recipe.servings : '-'}}</div>
     </div>
     <div (click)="openTagDialog()" class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
   </div>

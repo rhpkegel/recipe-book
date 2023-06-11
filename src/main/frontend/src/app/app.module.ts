@@ -32,6 +32,7 @@ import {StepEditDialogComponent} from './recipe-page/edit-dialogs/step-edit-dial
 import {NotesEditDialogComponent} from './recipe-page/edit-dialogs/notes-edit-dialog/notes-edit-dialog.component';
 import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
+import { BaseEditDialogDirective } from './recipe-page/edit-dialogs/base-edit-dialog.directive';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {MatSelectModule} from "@angular/material/select";
     IngredientEditDialogComponent,
     StepEditDialogComponent,
     NotesEditDialogComponent,
+    BaseEditDialogDirective,
   ],
   imports: [
     BrowserModule,
