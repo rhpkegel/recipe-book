@@ -23,9 +23,11 @@
   </div>
   <div class="footer">
     <button mat-button color="primary" (click)="recipe=initRecipe()">New recipe</button>
-    <button mat-button color="primary">Edit recipe</button>
-    <button mat-button color="primary">Load from disk</button>
-    <button mat-button color="primary">Save to disk</button>
+    <button mat-button color="primary" (click)="fileUpload.click()">
+      Load from disk
+    </button>
+    <input [(ngModel)]="selectedFiles" (change)="updateCurrentRecipe($event)" #fileUpload type="file" placeholder="-">
+    <button mat-button color="primary" (click)="downloadURI()">Save to disk</button>
     <button mat-button color="primary" (click)="printRecipe()">Print</button>
   </div>
 </div>
