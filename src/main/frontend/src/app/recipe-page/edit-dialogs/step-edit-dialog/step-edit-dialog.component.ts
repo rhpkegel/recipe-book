@@ -13,6 +13,9 @@ export class StepEditDialogComponent extends BaseEditDialogDirective<StepEditDia
   public form = this.fb.array(this.data);
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StepEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string[]) {
     super(dialogRef, data);
+    if (this.data.length == 0){
+      this.addStep(0);
+    }
   }
   addStep(i: number, after = true) {
     this.form.insert(after ? i + 1 : i, new FormControl<string|null>(''))

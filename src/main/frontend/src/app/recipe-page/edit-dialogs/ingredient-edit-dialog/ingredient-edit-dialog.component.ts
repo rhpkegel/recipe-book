@@ -37,6 +37,9 @@ export class IngredientEditDialogComponent extends BaseEditDialogDirective<Ingre
     this.data.forEach(subList => {
       this.form.push(this.initializeSubListForm(subList))
     })
+    if (this.data.length == 0){
+      this.form.push(this.initializeSubListForm({name: '', ingredients: []}));
+    }
   }
 
   private initializeSubListForm(sublist: IngredientSublist): FormGroup<IngredientSubListForm>{

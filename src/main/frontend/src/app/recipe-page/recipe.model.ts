@@ -1,7 +1,7 @@
 import {Ingredient, IngredientSublist} from "./ingredient.model";
 
 export interface Recipe {
-  id: number;
+  id?: number;
   title: string;
   tags?: string[];
   steps?: string[];

@@ -17,7 +17,7 @@ import {NotesEditDialogComponent} from "./edit-dialogs/notes-edit-dialog/notes-e
   styleUrls: ['./recipe-page.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class RecipePageComponent implements OnInit {
+export class RecipePageComponent {
   @Input()
   public recipe: Recipe | undefined;
   @Input()
@@ -35,11 +35,6 @@ export class RecipePageComponent implements OnInit {
   }
 
   constructor(private dialog: MatDialog) {
-  }
-
-  public ngOnInit(): void
-  {
-    this.openStepDialog()
   }
 
   public onPageResize($event: ResizedEvent) {

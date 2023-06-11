@@ -49,11 +49,6 @@
     padding: 0.5rem;
     display: flex;
     justify-content: space-evenly;
-
-    button {
-      @include mixins.styledButton;
-      width: 10rem;
-    }
   }
 }
 

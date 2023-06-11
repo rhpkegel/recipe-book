@@ -17,29 +17,35 @@
   <div class="step-background"></div>
 
   <div class="header">
-    <div class="title selectable" (click)="openTitleDialog()" [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}</div>
+    <div class="title selectable" (click)="openTitleDialog()"
+         [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}</div>
     <div class="time selectable" (click)="openTimeDialog()">
-      <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes+' min' : '-'}}</div>
+      <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes + ' min' : '-'}}</div>
       <div class="servings">Servings: {{recipe.servings ? recipe.servings : '-'}}</div>
     </div>
-    <div (click)="openTagDialog()" class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
+    <div (click)="openTagDialog()"
+         class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
   </div>
   <div class="recipe-content">
     <div (click)="openIngredientsDialog()" class="ingredients selectable">
-      <ng-container *ngFor="let ingredientSublist of recipe.ingredients">
-        <div class="ingredient-sublist">
-          <div class="ingredient-sublist__title" [ngStyle]="{fontSize: fontSize*1.5+'px'}">
-            {{ingredientSublist.name}}
+      <ng-container *ngIf="recipe.ingredients && recipe.ingredients.length > 0; else noIngredients">
+        <ng-container *ngFor="let ingredientSublist of recipe.ingredients">
+          <div class="ingredient-sublist">
+            <div class="ingredient-sublist__title" [ngStyle]="{fontSize: fontSize*1.5+'px'}">
+              {{ingredientSublist.name}}
+            </div>
+            <div class="ingredient"
+                 *ngFor="let ingredient of ingredientSublist.ingredients">{{ingredient.amount}} {{ingredient | formatUnit}} {{ingredient.name}}</div>
           </div>
-          <div class="ingredient"
-               *ngFor="let ingredient of ingredientSublist.ingredients">{{ingredient.amount}} {{ingredient | formatUnit}} {{ingredient.name}}</div>
-        </div>
+        </ng-container>
       </ng-container>
     </div>
     <div (click)="openStepDialog()" class="steps selectable">
+      <ng-container *ngIf="recipe.steps && recipe.steps.length > 0; else noSteps">
       <div class="step" *ngFor="let step of recipe.steps; let i = index">
         {{i + 1}}. {{step}}
       </div>
+        </ng-container>
     </div>
   </div>
   <div (click)="openNotesDialog()" class="chefs-notes selectable">
@@ -47,3 +53,11 @@
     <div class="chefs-notes__background" [ngStyle]="{fontSize: fontSize*2+'px'}">Chef's notes</div>
   </div>
 </div>
+
+<ng-template #noIngredients>
+  Voeg ingredienten toe...
+</ng-template>
+
+<ng-template #noSteps>
+  Voeg Stappen toe...
+</ng-template>

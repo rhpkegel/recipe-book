@@ -8,7 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./recipe-editor.component.scss']
 })
 export class RecipeEditorComponent{
-  public recipe: Recipe = exampleRecipe;
+  public recipe: Recipe = this.initRecipe();
   public recipeWidth = 30;
   doublePage: boolean = false;
   constructor(public dialog: MatDialog) { }
@@ -30,6 +30,14 @@ export class RecipeEditorComponent{
     this.doublePage = !this.doublePage;
     if (this.doublePage && this.recipeWidth > 50){
       this.recipeWidth = 50;
+    }
+  }
+
+  initRecipe(): Recipe {
+    return {
+      ingredients: [],
+      steps: [],
+      title: ''
     }
   }
 }
