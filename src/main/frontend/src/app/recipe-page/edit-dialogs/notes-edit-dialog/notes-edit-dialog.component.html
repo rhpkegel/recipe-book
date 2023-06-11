@@ -1,1 +1,17 @@
-<p>notes-edit-dialog works!</p>
+<h2 mat-dialog-title>Titel aanpassen</h2>
+<mat-dialog-content>
+  <div class="content-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Titel</mat-label>
+      <textarea
+        cdkTextareaAutosize
+        [formControl]="form"
+        matInput
+        placeholder="Chef's Notes"></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button tabindex="-1" (click)="onCancel()" mat-button>Annuleren</button>
+  <button tabindex="-1" (click)="onAccept()" mat-button>Aanpassen</button>
+</mat-dialog-actions>

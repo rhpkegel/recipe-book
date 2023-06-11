@@ -42,8 +42,8 @@
       </div>
     </div>
   </div>
-  <div *ngIf="recipe.notes" (click)="openNotesDialog()" class="chefs-notes selectable">
-    <div class="chefs-notes__content">{{recipe.notes}}</div>
+  <div (click)="openNotesDialog()" class="chefs-notes selectable">
+    <div class="chefs-notes__content">{{recipe.notes ? recipe.notes : '-'}}</div>
     <div class="chefs-notes__background" [ngStyle]="{fontSize: fontSize*2+'px'}">Chef's notes</div>
   </div>
 </div>

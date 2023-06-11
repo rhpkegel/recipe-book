@@ -28,7 +28,7 @@ export class IngredientEditDialogComponent extends BaseEditDialogDirective<Ingre
     return Object.keys(unitShortNames);
   }
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IngredientSublist[]) {
+  constructor(public dialogRef: MatDialogRef<IngredientEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IngredientSublist[]) {
     super(dialogRef, data);
     this.initializeForm();
   }

@@ -7,4 +7,27 @@ mat-dialog-actions{
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+}
+
+.line{
+  display: flex;
+  min-width: 40vw;
+  align-items: center;
+  mat-form-field{
+    width: 100%;
+  }
+  &__controls{
+    display: flex;
+    align-items: center;
+    &__insert{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: space-between;
+      button:last-child{
+        height: 2rem;
+      }
+    }
+  }
 }

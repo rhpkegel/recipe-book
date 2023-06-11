@@ -37,7 +37,9 @@ export class RecipePageComponent implements OnInit {
   constructor(private dialog: MatDialog) {
   }
 
-  public ngOnInit(): void {
+  public ngOnInit(): void
+  {
+    this.openStepDialog()
   }
 
   public onPageResize($event: ResizedEvent) {
