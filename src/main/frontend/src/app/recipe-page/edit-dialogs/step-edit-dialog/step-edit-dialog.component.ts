@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject} from '@angular/core';
+import {Component, ElementRef, HostListener, Inject, QueryList, ViewChildren} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {TimeModel} from "../time-edit-dialog/time-edit-dialog.component";
@@ -9,15 +9,34 @@ import {BaseEditDialogDirective} from "../base-edit-dialog.directive";
   templateUrl: './step-edit-dialog.component.html',
   styleUrls: ['./step-edit-dialog.component.scss']
 })
-export class StepEditDialogComponent extends BaseEditDialogDirective<StepEditDialogComponent, string[]>{
+export class StepEditDialogComponent extends BaseEditDialogDirective<StepEditDialogComponent, string[]> {
   public form = this.fb.array(this.data);
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StepEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string[]) {
+
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StepEditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string[], private elementRef: ElementRef) {
     super(dialogRef, data);
-    if (this.data.length == 0){
+    if (this.data.length == 0) {
       this.addStep(0);
     }
   }
+
   addStep(i: number, after = true) {
-    this.form.insert(after ? i + 1 : i, new FormControl<string|null>(''))
+    const insertIndex = after ? i + 1 : i;
+    this.form.insert(insertIndex, new FormControl<string | null>(''))
+    this.setFocus(insertIndex);
+  }
+
+  onBackspace(i: number) {
+    if(!this.form.controls[i].value){
+      this.form.removeAt(i);
+    }
+    if(i > 0){
+      this.setFocus(i-1);
+    } else{
+      this.setFocus(0);
+    }
+  }
+
+  setFocus(i: number){
+    setTimeout(()=> document.getElementById(`step-${i}`)?.focus(), 0);
   }
 }

@@ -44,7 +44,8 @@ export class RecipePageComponent {
   openTitleDialog() {
     this.activeDialogRef = this.dialog.open(TitleEditDialogComponent, {
       width: '30rem',
-      data: this.recipe ? this.recipe?.title : ''
+      data: this.recipe ? this.recipe?.title : '',
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((newTitle: string) => {
       if (this.recipe) {
@@ -59,7 +60,8 @@ export class RecipePageComponent {
       data: {
         cookTime: this.recipe?.cookTimeMinutes,
         servings: this.recipe?.servings
-      }
+      },
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: TimeModel) => {
       if (this.recipe) {
@@ -73,7 +75,8 @@ export class RecipePageComponent {
     this.activeDialogRef = this.dialog.open(TagEditDialogComponent, {
       width: '30rem',
       maxHeight: '65rem',
-      data: this.recipe?.tags ? this.recipe?.tags : []
+      data: this.recipe?.tags ? this.recipe?.tags : [],
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: string[]) => {
       if (this.recipe) {
@@ -84,7 +87,8 @@ export class RecipePageComponent {
 
   openIngredientsDialog() {
     this.activeDialogRef = this.dialog.open(IngredientEditDialogComponent, {
-      data: JSON.parse(JSON.stringify(this.recipe?.ingredients))
+      data: JSON.parse(JSON.stringify(this.recipe?.ingredients)),
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: IngredientSublist[]) => {
       if (this.recipe) {
@@ -95,7 +99,8 @@ export class RecipePageComponent {
 
   openStepDialog() {
     this.activeDialogRef = this.dialog.open(StepEditDialogComponent, {
-      data: this.recipe?.steps ? this.recipe.steps : []
+      data: this.recipe?.steps ? this.recipe.steps : [],
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: string[]) => {
       if (this.recipe) {
@@ -106,7 +111,8 @@ export class RecipePageComponent {
 
   openNotesDialog() {
     this.activeDialogRef = this.dialog.open(NotesEditDialogComponent, {
-      data: this.recipe?.notes ? this.recipe.notes : ''
+      data: this.recipe?.notes ? this.recipe.notes : '',
+      disableClose: true
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: string) => {
       if (this.recipe) {

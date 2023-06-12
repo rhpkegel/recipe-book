@@ -3,20 +3,26 @@
   <div class="content-container">
     <div *ngFor="let step of form.controls; let i = index" class="line">
       <mat-form-field appearance="outline" subscriptSizing=dynamic>
-        <mat-label>Stap {{i+1}}</mat-label>
-        <textarea type="text" [formControl]="step" matInput cdkTextareaAutosize placeholder = "Samenvatting"></textarea>
+        <mat-label>Stap {{i + 1}}</mat-label>
+        <textarea [id]="'step-'+i"
+                  (keydown.enter)="addStep(i);$event.preventDefault()"
+                  (keydown.backspace)="onBackspace(i)"
+                  (keydown.control.arrowDown)="setFocus(i+1)"
+                  (keydown.control.arrowUp)="setFocus(i-1)"
+                  type="text" [formControl]="step"
+                  matInput
+                  cdkTextareaAutosize placeholder="Samenvatting"></textarea>
       </mat-form-field>
       <div class="line__controls">
-        <button [disabled]="form.controls.length < 1" (click)="form.removeAt(i);
-      " mat-icon-button>
+        <button tabindex="-1" [disabled]="form.controls.length < 1" (click)="form.removeAt(i)" mat-icon-button>
           <ng-icon name="heroXMark"></ng-icon>
         </button>
         <div class="line__controls__insert">
-          <button (click)="addStep(i, false)" mat-button>
+          <button tabindex="-1" (click)="addStep(i, false)" mat-button>
             <ng-icon name="heroPlus"></ng-icon>
             <ng-icon name="heroChevronUp"></ng-icon>
           </button>
-          <button (click)="addStep(i)" mat-button>
+          <button tabindex="-1" (click)="addStep(i)" mat-button>
             <ng-icon name="heroPlus"></ng-icon>
             <ng-icon name="heroChevronDown"></ng-icon>
           </button>

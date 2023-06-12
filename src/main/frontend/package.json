@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng deploy --base-href=/recipe-book/ --repo=https://github.com/rhpkegel/recipe-book.git"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@fontsource/inter": "^4.5.12",
     "@ng-icons/core": "^23.1.0",
     "@ng-icons/heroicons": "^23.1.0",
+    "angular-cli-ghpages": "^1.0.6",
     "angular-resize-event": "^3.2.0",
     "convert": "^4.10.0",
     "rxjs": "^7.8.0",
