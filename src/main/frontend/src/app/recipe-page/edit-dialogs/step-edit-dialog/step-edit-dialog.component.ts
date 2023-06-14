@@ -28,11 +28,11 @@ export class StepEditDialogComponent extends BaseEditDialogDirective<StepEditDia
   onBackspace(i: number) {
     if(!this.form.controls[i].value){
       this.form.removeAt(i);
-    }
-    if(i > 0){
-      this.setFocus(i-1);
-    } else{
-      this.setFocus(0);
+      if(i > 0){
+        this.setFocus(i-1);
+      } else{
+        this.setFocus(0);
+      }
     }
   }
 

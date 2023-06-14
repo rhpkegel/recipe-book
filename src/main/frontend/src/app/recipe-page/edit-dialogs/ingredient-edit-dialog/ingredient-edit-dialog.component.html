@@ -37,38 +37,38 @@
              let-ingredientIndex='ingredientIndex'
              let-disableRemove='disableRemove'>
   <div class="ingredient">
-    <mat-form-field class="ingredient__name" appearance="outline" subscriptSizing=dynamic>
-      <mat-label>Naam</mat-label>
-      <input [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-0'" type="text"
+    <mat-form-field class="ingredient__amount" appearance="outline" subscriptSizing=dynamic>
+      <mat-label>Hoeveelheid</mat-label>
+      <input [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-0'"
+             type="number"
              (keydown.control.arrowUp)="setFocus(sublistIndex,ingredientIndex-1,0, $event)"
              (keydown.control.arrowDown)="setFocus(sublistIndex,ingredientIndex+1,0, $event)"
              (keydown.control.arrowRight)="setFocus(sublistIndex,ingredientIndex,1, $event)"
-             (keydown.enter)="addIngredient(sublistIndex, ingredientIndex);$event.preventDefault()"
-             (keydown.backspace)="onBackspace(sublistIndex, ingredientIndex)"
-             [formControl]="ingredientForm.controls.name" matInput>
-    </mat-form-field>
-    <mat-form-field class="ingredient__amount" appearance="outline" subscriptSizing=dynamic>
-      <mat-label>Hoeveelheid</mat-label>
-      <input [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-1'"
-             type="number"
-             (keydown.control.arrowUp)="setFocus(sublistIndex,ingredientIndex-1,1, $event)"
-             (keydown.control.arrowDown)="setFocus(sublistIndex,ingredientIndex+1,1, $event)"
-             (keydown.control.arrowRight)="setFocus(sublistIndex,ingredientIndex,2, $event)"
-             (keydown.control.arrowLeft)="setFocus(sublistIndex,ingredientIndex,0, $event)"
              (keydown.enter)="addIngredient(sublistIndex, ingredientIndex);$event.preventDefault()"
              [formControl]="ingredientForm.controls.amount" placeholder="-" matInput>
     </mat-form-field>
     <mat-form-field class="ingredient__unit" appearance="outline" subscriptSizing=dynamic>
       <mat-label>Type</mat-label>
-      <mat-select [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-2'"
-                  (keydown.control.arrowUp)="setFocus(sublistIndex,ingredientIndex-1,2, $event)"
-                  (keydown.control.arrowDown)="setFocus(sublistIndex,ingredientIndex+1,2, $event)"
-                  (keydown.control.arrowLeft)="setFocus(sublistIndex,ingredientIndex,1, $event)"
+      <mat-select [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-1'"
+                  (keydown.control.arrowUp)="setFocus(sublistIndex,ingredientIndex-1,1, $event)"
+                  (keydown.control.arrowDown)="setFocus(sublistIndex,ingredientIndex+1,1, $event)"
+                  (keydown.control.arrowLeft)="setFocus(sublistIndex,ingredientIndex,0, $event)"
+                  (keydown.control.arrowRight)="setFocus(sublistIndex,ingredientIndex,2, $event)"
                   [formControl]="ingredientForm.controls.unit" name="unit">
         <mat-option *ngFor="let unit of unitOptions" [value]="unit">
           {{unit}}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ingredient__name" appearance="outline" subscriptSizing=dynamic>
+      <mat-label>Naam</mat-label>
+      <input [id]="'ingredient-'+sublistIndex+'-'+ingredientIndex+'-2'" type="text"
+             (keydown.control.arrowUp)="setFocus(sublistIndex,ingredientIndex-1,2, $event)"
+             (keydown.control.arrowDown)="setFocus(sublistIndex,ingredientIndex+1,2, $event)"
+             (keydown.control.arrowLeft)="setFocus(sublistIndex,ingredientIndex,1, $event)"
+             (keydown.enter)="addIngredient(sublistIndex, ingredientIndex);$event.preventDefault()"
+             (keydown.backspace)="onBackspace(sublistIndex, ingredientIndex)"
+             [formControl]="ingredientForm.controls.name" matInput>
     </mat-form-field>
     <div class="ingredient__controls">
       <button tabindex="-1" [disabled]="disableRemove" (click)="removeIngredient(sublistIndex, ingredientIndex)

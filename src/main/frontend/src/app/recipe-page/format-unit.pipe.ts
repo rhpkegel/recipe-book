@@ -8,9 +8,6 @@ import {unitShortNames} from "./measurement-unit.model";
 export class FormatUnitPipe implements PipeTransform {
 
   transform(value: Ingredient): string {
-    let unitName = value.unit ? unitShortNames[value.unit] : '';
-    if (value.unit && value.amount && value.amount > 1) unitName += 's';
-    return unitName;
+    return value.unit ? unitShortNames[value.unit] : '';
   }
-
 }
