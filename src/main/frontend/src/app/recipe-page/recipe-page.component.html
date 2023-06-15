@@ -7,6 +7,7 @@
 </div>
 
 <div class="a5-page-container"
+     (click)="onPageClicked($event)"
      *ngIf="recipe"
      [ngStyle]="{
       width: containerWidth,

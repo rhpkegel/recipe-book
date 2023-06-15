@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {exampleRecipe, Recipe} from "./recipe.model";
 import {ResizedEvent} from "angular-resize-event";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -22,6 +22,8 @@ export class RecipePageComponent {
   public recipe: Recipe | undefined;
   @Input()
   public width: number = 50;
+  @Output()
+  public pageClicked: EventEmitter<void> = new EventEmitter<void>();
   public fontSize: number = 16;
 
   private activeDialogRef: MatDialogRef<any> | undefined;
@@ -119,5 +121,11 @@ export class RecipePageComponent {
         this.recipe.notes = returnData;
       }
     });
+  }
+
+  onPageClicked($event: MouseEvent) {
+    if (($event.target as HTMLElement).className.includes("a5-page-container")) {
+      this.pageClicked.emit();
+    }
   }
 }

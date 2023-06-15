@@ -33,6 +33,7 @@ import {NotesEditDialogComponent} from './recipe-page/edit-dialogs/notes-edit-di
 import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
 import { BaseEditDialogDirective } from './recipe-page/edit-dialogs/base-edit-dialog.directive';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { BaseEditDialogDirective } from './recipe-page/edit-dialogs/base-edit-di
     ReactiveFormsModule,
     MatButtonModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

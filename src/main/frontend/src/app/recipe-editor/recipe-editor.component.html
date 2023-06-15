@@ -11,22 +11,41 @@
     </button>
   </div>
 </div>
+
 <div class="container">
+  <div class="sidebar">
+    <div cdkDropList class="recipe-list" (cdkDropListDropped)="drop($event)">
+      <h1 class="recipe-list__header">Recepten</h1>
+      <div class="recipe-list__row"
+           [class.active]="i==activeRecipeIndex"
+           (click)="this.activeRecipeIndex=i"
+           *ngFor="let recipe of recipes; index as i"
+           cdkDrag>
+        {{recipe.title ? recipe.title : 'Untitled Recipe'}}
+        <button (click)="deleteRecipe(i)" mat-icon-button>X</button>
+      </div>
+    </div>
+  </div>
+
   <div class="content">
     <app-recipe-page
-      [recipe]="recipe"
+      [recipe]="this.recipes[this.activeRecipeIndex]"
+      (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
       [width]="recipeWidth"
     ></app-recipe-page>
     <app-recipe-page *ngIf="doublePage"
+                     [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
+                     (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
                      [width]="recipeWidth"
     ></app-recipe-page>
   </div>
+
   <div class="footer">
-    <button mat-button color="primary" (click)="recipe=initRecipe()">New recipe</button>
+    <button mat-button color="primary" (click)="initRecipe()">New recipe</button>
     <button mat-button color="primary" (click)="fileUpload.click()">
       Load from disk
     </button>
-    <input [(ngModel)]="selectedFiles" (change)="updateCurrentRecipe($event)" #fileUpload type="file" placeholder="-">
+    <input [(ngModel)]="selectedRecipes" (change)="updateCurrentRecipe($event)" #fileUpload type="file" multiple placeholder="-">
     <button mat-button color="primary" (click)="downloadURI()">Save to disk</button>
     <button mat-button color="primary" (click)="printRecipe()">Print</button>
   </div>
