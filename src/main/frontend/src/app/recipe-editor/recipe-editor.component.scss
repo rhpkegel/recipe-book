@@ -113,7 +113,22 @@
 }
 
 @media print {
+  .container{
+    display: flex;
+    .content{
+      display: block;
+      overflow: visible;
+      .print-row{
+        display: flex;
+        page-break-after: always;
+      }
+    }
+  }
+
   .zoom-controls {
+    display: none;
+  }
+  .sidebar {
     display: none;
   }
   .footer {

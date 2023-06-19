@@ -1,4 +1,4 @@
-import {Ingredient, IngredientSublist} from "./ingredient.model";
+import {IngredientSublist} from "./ingredient.model";
 
 export interface Recipe {
   id?: number;
@@ -122,3 +122,5 @@ export const exampleRecipe: Recipe = {
   notes: 'Real goulash is more like a soup, so if you want yours thinner, just add 2 or 3 extra cups of broth',
   origin: 'Chef john, Allrecipes',
 }
+
+export const exampleRecipeBook: Recipe[] = [exampleRecipe]

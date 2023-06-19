@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {exampleRecipe, Recipe} from "../recipe-page/recipe.model";
+import {exampleRecipe, exampleRecipeBook, Recipe} from "../recipe-page/recipe.model";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
@@ -9,7 +9,9 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 })
 export class RecipeEditorComponent {
   public activeRecipeIndex = 0;
-  public recipes: Recipe[] = [exampleRecipe];
+  public recipes: Recipe[] = exampleRecipeBook;
+
+  public printing = false;
   public recipeWidth = 30;
   doublePage: boolean = true;
   selectedRecipes: File[] | undefined;
@@ -32,7 +34,12 @@ export class RecipeEditorComponent {
   printRecipe() {
     this.recipeWidth = 50;
     this.doublePage = true;
+    this.printing = true;
     setTimeout(() => window.print());
+    window.onafterprint = () => {
+      this.recipeWidth = 30;
+      this.printing = false;
+    }
   }
 
   doublePageToggle() {
