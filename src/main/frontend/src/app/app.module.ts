@@ -15,7 +15,7 @@ import {
   heroDocument,
   heroMagnifyingGlassMinus,
   heroMagnifyingGlassPlus,
-  heroPlus, heroQueueList,
+  heroPlus, heroQueueList, heroRectangleStack,
   heroXMark
 } from "@ng-icons/heroicons/outline";
 import {AngularResizeEventModule} from "angular-resize-event";
@@ -69,7 +69,8 @@ import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-
             heroChevronDown,
             heroQueueList,
             heroArrowLeft,
-            heroArrowRight
+            heroArrowRight,
+            heroRectangleStack
         }),
         AngularResizeEventModule,
         MatDialogModule,

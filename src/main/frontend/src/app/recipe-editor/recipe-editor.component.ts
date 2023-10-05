@@ -99,7 +99,12 @@ export class RecipeEditorComponent {
     this.recipeService.setRecipes(this.recipes);
   }
 
-  showToC() {
+  showTableOfContents() {
     this.activeRecipeIndex = -1;
+  }
+
+  sortRecipes() {
+    this.recipes = this.recipes.sort((a,b)=> a.title.localeCompare(b.title));
+    this.recipeService.setRecipes(this.recipes);
   }
 }

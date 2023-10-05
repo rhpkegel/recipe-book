@@ -9,7 +9,7 @@
     <button (click)="doublePageToggle()">
       <ng-icon name="heroBookOpen"></ng-icon>
     </button>
-    <button (click)="showToC()">
+    <button (click)="showTableOfContents()">
       <ng-icon name="heroQueueList"></ng-icon>
     </button>
     <div class="arrow-navigation">
@@ -26,7 +26,12 @@
 <div class="container">
   <div class="sidebar">
     <div cdkDropList class="recipe-list" (cdkDropListDropped)="drop($event)">
-      <h1 class="recipe-list__header">Recepten</h1>
+      <div class="recipe-list__header">
+        <div class="title">Recepten</div>
+        <button class="sort-button" (click)="sortRecipes()">
+          <ng-icon name="heroRectangleStack"/>
+        </button>
+      </div>
       <div class="recipe-list__row"
            [class.active]="i==activeRecipeIndex"
            (click)="this.activeRecipeIndex=i"
@@ -40,11 +45,12 @@
 
   <div class="content">
     <ng-container *ngIf="!printing">
-      <app-table-of-contents-page *ngIf="(doublePage && this.activeRecipeIndex === 0) || (this.activeRecipeIndex < 0)" [width]="recipeWidth"/>
+      <app-table-of-contents-page *ngIf="(doublePage && this.activeRecipeIndex === 0) || (this.activeRecipeIndex < 0)"
+                                  [width]="recipeWidth"/>
       <app-recipe-page *ngIf="this.activeRecipeIndex >= 0"
-        [recipe]="this.recipes[this.activeRecipeIndex]"
-        (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
-        [width]="recipeWidth"
+                       [recipe]="this.recipes[this.activeRecipeIndex]"
+                       (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
+                       [width]="recipeWidth"
       ></app-recipe-page>
       <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex !== 0"
                        [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
@@ -54,11 +60,11 @@
     </ng-container>
     <ng-container *ngIf="printing">
       <div class="print-row">
-      <app-table-of-contents-page [width]="49"/>
-      <app-recipe-page
-        [recipe]="recipes[0]"
-        [width]="49"
-      ></app-recipe-page>
+        <app-table-of-contents-page [width]="49"/>
+        <app-recipe-page
+          [recipe]="recipes[0]"
+          [width]="49"
+        ></app-recipe-page>
       </div>
       <ng-container *ngFor="let recipe of (recipes | slice:1); let i = index; let even = even">
         <ng-container *ngIf="even">
