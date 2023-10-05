@@ -22,19 +22,14 @@ export class RecipePageComponent {
   public recipe: Recipe | undefined;
   @Input()
   public width: number = 50;
+  @Input()
+  public knownTags: string[] = [];
+
   @Output()
   public pageClicked: EventEmitter<void> = new EventEmitter<void>();
   public fontSize: number = 16;
 
   private activeDialogRef: MatDialogRef<any> | undefined;
-
-  public get containerWidth(): string {
-    return `${this.width}vw`;
-  };
-
-  public get containerFontSize(): string {
-    return `${this.fontSize}px`
-  }
 
   constructor(private dialog: MatDialog) {
   }

@@ -1,7 +1,7 @@
 <div class="a5-page-container"
      *ngIf="!recipe"
      [ngStyle]="{
-  width: containerWidth,
+  width: width+'vw',
   fontSize: fontSize+'px'
   }">
 </div>
@@ -10,7 +10,7 @@
      (click)="onPageClicked($event)"
      *ngIf="recipe"
      [ngStyle]="{
-      width: containerWidth,
+      width: width+'vw',
       fontSize: fontSize+'px'
      }"
      (resized)="onPageResize($event)">

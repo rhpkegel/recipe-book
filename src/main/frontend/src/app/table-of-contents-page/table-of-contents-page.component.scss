@@ -1,0 +1,50 @@
+.a5-page-container {
+  position: relative;
+  page-break-inside: avoid;
+  border: 0.1rem darkgray solid;
+  aspect-ratio: 148/209;
+  box-shadow: rgba(black, 0.1) 0.25rem 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.toc-header{
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.toc-body{
+  column-count: 2;
+  column-fill: auto;
+  height: 90%;
+
+  .toc-entry{
+    padding: 2px 0.5rem;
+    font-size: 13px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto min-content;
+    border-bottom: 1px solid lightgrey;
+
+    &__title{
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    &__page-number{
+      grid-row: 1/span 2;
+      grid-column: 2;
+      align-self: center;
+    }
+
+    &__tags{
+      grid-row: 2;
+      grid-column: 1;
+      color: gray;
+      font-size: 11px;
+    }
+  }
+}

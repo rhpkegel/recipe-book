@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {exampleRecipe, exampleRecipeBook, Recipe} from "../recipe-page/recipe.model";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {RecipeService} from "../recipe.service";
 
 @Component({
   selector: 'app-recipe-editor',
@@ -9,7 +10,7 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 })
 export class RecipeEditorComponent {
   public activeRecipeIndex = 0;
-  public recipes: Recipe[] = exampleRecipeBook;
+  public recipes: Recipe[] = this.recipeService.getRecipes();
 
   public printing = false;
   public recipeWidth = 30;
@@ -20,7 +21,7 @@ export class RecipeEditorComponent {
     return this.recipes[this.activeRecipeIndex];
   }
 
-  constructor() {
+  constructor(public recipeService: RecipeService) {
   }
 
   zoomInRecipe() {
@@ -57,6 +58,7 @@ export class RecipeEditorComponent {
     };
     this.recipes.push(newRecipe);
     this.activeRecipeIndex = this.recipes.length - 1;
+    this.recipeService.setRecipes(this.recipes);
   }
 
   downloadURI() {
@@ -73,7 +75,6 @@ export class RecipeEditorComponent {
   }
 
   updateCurrentRecipe(e: Event) {
-    console.log(e)
     Array.from((e.target as HTMLInputElement).files as FileList).forEach((file: File) => {
       let reader = new FileReader();
       reader.onload = () => {
@@ -83,6 +84,7 @@ export class RecipeEditorComponent {
         } else {
           this.recipes.push(result);
         }
+        this.recipeService.setRecipes(this.recipes);
       };
       reader.readAsText(file, 'utf-8')
     });
@@ -94,5 +96,10 @@ export class RecipeEditorComponent {
 
   deleteRecipe(i: number) {
     this.recipes.splice(i, 1)
+    this.recipeService.setRecipes(this.recipes);
+  }
+
+  showToC() {
+    this.activeRecipeIndex = -1;
   }
 }

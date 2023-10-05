@@ -2,6 +2,8 @@
 
 @mixin styledButton {
   padding: 1rem;
+  width: 3rem;
+  height: 3rem;
   background: mat.get-color-from-palette(mat.$light-blue-palette, 50);
   border: 0;
   border-radius: 6px;

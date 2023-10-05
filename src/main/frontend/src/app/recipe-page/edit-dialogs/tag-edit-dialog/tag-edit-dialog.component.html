@@ -4,13 +4,23 @@
     <div *ngFor="let tag of form.controls; let i = index" class="line">
     <mat-form-field appearance="outline" subscriptSizing = dynamic>
       <mat-label>Tag Name</mat-label>
-      <input type="text" [formControl]="tag" matInput>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let tagOption of tagOptions" [value]="tagOption">
+          {{tagOption}}
+        </mat-option>
+      </mat-autocomplete>
+      <input type="text"
+             tabindex="-1"
+             placeholder="Insert a tag"
+             matInput
+             [formControl]="tag"
+             [matAutocomplete]="auto">
     </mat-form-field>
       <button tabindex="-1" mat-icon-button (click)="form.removeAt(i)">
         <ng-icon name="heroXMark"></ng-icon>
       </button>
     </div>
-    <button (click)="addTag()" class="add-tag" color="primary" mat-fab>+</button>
+    <button tabindex (click)="addTag()" class="add-tag" color="primary" mat-fab>+</button>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

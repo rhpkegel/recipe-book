@@ -1,0 +1,14 @@
+<div class="a5-page-container"
+     [ngStyle]="{
+  width: width+'vw',
+  fontSize: fontSize+'px'
+  }">
+  <div class="toc-header">Inhoudsopgave</div>
+  <div class="toc-body">
+    <div class="toc-entry" *ngFor="let recipe of recipes; index as i">
+      <div class="toc-entry__title">{{recipe.title}}</div>
+      <div class="toc-entry__page-number">{{i+1}}</div>
+      <div class="toc-entry__tags">{{recipe.tags?.join(', ')}}</div>
+    </div>
+  </div>
+</div>

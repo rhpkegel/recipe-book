@@ -8,11 +8,14 @@ import {FormatUnitPipe} from './recipe-page/format-unit.pipe';
 import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
 import {NgIconsModule} from "@ng-icons/core";
 import {
+  heroArrowLeft,
+  heroArrowRight,
   heroBookOpen,
   heroChevronDown, heroChevronUp,
+  heroDocument,
   heroMagnifyingGlassMinus,
   heroMagnifyingGlassPlus,
-  heroPlus,
+  heroPlus, heroQueueList,
   heroXMark
 } from "@ng-icons/heroicons/outline";
 import {AngularResizeEventModule} from "angular-resize-event";
@@ -34,6 +37,8 @@ import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
 import { BaseEditDialogDirective } from './recipe-page/edit-dialogs/base-edit-dialog.directive';
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-contents-page.component';
 
 @NgModule({
   declarations: [
@@ -48,31 +53,36 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     StepEditDialogComponent,
     NotesEditDialogComponent,
     BaseEditDialogDirective,
+    TableOfContentsPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgIconsModule.withIcons({
-      heroMagnifyingGlassPlus,
-      heroMagnifyingGlassMinus,
-      heroBookOpen,
-      heroXMark,
-      heroPlus,
-      heroChevronUp,
-      heroChevronDown
-    }),
-    AngularResizeEventModule,
-    MatDialogModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatListModule,
-    MatSelectModule,
-    DragDropModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgIconsModule.withIcons({
+            heroMagnifyingGlassPlus,
+            heroMagnifyingGlassMinus,
+            heroBookOpen,
+            heroXMark,
+            heroPlus,
+            heroChevronUp,
+            heroChevronDown,
+            heroQueueList,
+            heroArrowLeft,
+            heroArrowRight
+        }),
+        AngularResizeEventModule,
+        MatDialogModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatListModule,
+        MatSelectModule,
+        DragDropModule,
+        MatAutocompleteModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

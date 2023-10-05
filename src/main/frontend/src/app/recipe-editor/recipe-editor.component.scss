@@ -22,11 +22,17 @@
     right: 2rem;
     top: 2rem;
     display: flex;
+    align-items: flex-end;
     flex-direction: column;
     gap: 0.5rem;
 
+    .arrow-navigation{
+      display: flex;
+      gap: 0.5rem;
+    }
+
     button {
-      @include mixins.styledButton
+      @include mixins.styledButton;
     }
   }
 }
@@ -34,7 +40,7 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-rows: auto min-content;
+  grid-template-rows: 93%;
   grid-template-columns: 20rem auto;
 
   .content {
@@ -53,6 +59,13 @@
     grid-row: 1;
     .recipe-list{
       h1{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px lightgray solid;
+        background: white;
+        width: 100%;
         display: flex;
         justify-content: center;
         font-size: 1.5rem;
@@ -60,6 +73,7 @@
       }
       border-right: 1px mat.get-color-from-palette(mat.$gray-palette, 300) solid;
       height: 100%;
+      overflow: scroll;
       &__row{
         @include recipe-row;
         align-items: center;

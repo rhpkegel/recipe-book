@@ -7,10 +7,15 @@ import {exampleRecipe, Recipe} from "./recipe-page/recipe.model";
 })
 export class RecipeService {
 
+  private recipes: Recipe[] = [exampleRecipe];
   constructor() {
   }
 
-  public getRecipes(): Observable<Recipe[]> {
-    return of([exampleRecipe])
+  public getRecipes(): Recipe[] {
+    return this.recipes;
+  }
+
+  public setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
   }
 }
