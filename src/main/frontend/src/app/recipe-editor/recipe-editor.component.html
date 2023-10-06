@@ -27,10 +27,16 @@
   <div class="sidebar">
     <div cdkDropList class="recipe-list" (cdkDropListDropped)="drop($event)">
       <div class="recipe-list__header">
+        <mat-form-field class="cookbook-title" appearance="outline">
+          <mat-label>Kookboek titel</mat-label>
+          <input [spellcheck]="true" [formControl]="cookbookTitle" matInput placeholder="Kookboek titel">
+        </mat-form-field>
+        <div class="recipe-list__header__title-row">
         <div class="title">Recepten</div>
         <button class="sort-button" (click)="sortRecipes()">
           <ng-icon name="heroRectangleStack"/>
         </button>
+        </div>
       </div>
       <div class="recipe-list__row"
            [class.active]="i==activeRecipeIndex"

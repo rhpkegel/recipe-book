@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {exampleRecipe, exampleRecipeBook, Recipe} from "../recipe-page/recipe.model";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {RecipeService} from "../recipe.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-recipe-editor',
@@ -11,6 +12,7 @@ import {RecipeService} from "../recipe.service";
 export class RecipeEditorComponent {
   public activeRecipeIndex = 0;
   public recipes: Recipe[] = this.recipeService.getRecipes();
+  public cookbookTitle = new FormControl(this.recipes[this.activeRecipeIndex].title);
 
   public printing = false;
   public recipeWidth = 30;
@@ -68,7 +70,7 @@ export class RecipeEditorComponent {
 
     var a = document.createElement('a');
     a.href = uri;
-    a.download = this.selectedRecipe.title ? this.selectedRecipe.title : 'Cookbook'
+    a.download = this.cookbookTitle.value ? this.cookbookTitle.value : 'Cookbook'
     console.log(a.href, a.download)
     document.body.appendChild(a);
     a.click();
@@ -82,6 +84,7 @@ export class RecipeEditorComponent {
         const result = JSON.parse(reader.result as string);
         if (Array.isArray(result)){
           this.recipes = result;
+          this.cookbookTitle.setValue(file.name.replace('.json', ''));
         } else {
           this.recipes.push(result);
         }
