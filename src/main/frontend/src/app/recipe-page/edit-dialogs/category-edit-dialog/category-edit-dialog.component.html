@@ -4,7 +4,7 @@
             <mat-form-field appearance="outline" subscriptSizing = dynamic>
                 <mat-label>Categorie</mat-label>
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let tagOption of categoryOptions" [value]="tagOption">
+                    <mat-option *ngFor="let tagOption of filteredCategoryOptions | async" [value]="tagOption">
                         {{tagOption}}
                     </mat-option>
                 </mat-autocomplete>

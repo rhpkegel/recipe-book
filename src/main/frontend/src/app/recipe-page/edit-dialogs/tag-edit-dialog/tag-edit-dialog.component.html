@@ -5,13 +5,14 @@
     <mat-form-field appearance="outline" subscriptSizing = dynamic>
       <mat-label>Tag Name</mat-label>
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let tagOption of tagOptions" [value]="tagOption">
+        <mat-option *ngFor="let tagOption of filteredTagOptions | async" [value]="tagOption">
           {{tagOption}}
         </mat-option>
       </mat-autocomplete>
       <input type="text"
              placeholder="Insert a tag"
              matInput
+             (focus)="onTagFocus(tag)"
              [spellcheck]="true"
              [formControl]="tag"
              [matAutocomplete]="auto">
