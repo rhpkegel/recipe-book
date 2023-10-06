@@ -1,7 +1,6 @@
-import {Component, ElementRef, HostListener, Inject, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormControl} from "@angular/forms";
-import {TimeModel} from "../time-edit-dialog/time-edit-dialog.component";
 import {BaseEditDialogDirective} from "../base-edit-dialog.directive";
 
 @Component({
@@ -36,7 +35,7 @@ export class StepEditDialogComponent extends BaseEditDialogDirective<StepEditDia
     }
   }
 
-  setFocus(i: number){
-    setTimeout(()=> document.getElementById(`step-${i}`)?.focus(), 0);
+  setFocus(i: number) {
+    setTimeout(() => document.getElementById(`step-${i}`)?.focus(), 0);
   }
 }

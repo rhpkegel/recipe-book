@@ -11,6 +11,7 @@
                 <input type="text"
                        placeholder="Voer categorie in"
                        matInput
+                       [spellcheck]="true"
                        (keydown.enter)="onAccept()"
                        [formControl]="form"
                        [matAutocomplete]="auto">

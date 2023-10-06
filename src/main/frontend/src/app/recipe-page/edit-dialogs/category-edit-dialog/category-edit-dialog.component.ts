@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {RecipeService} from "../../../recipe.service";
@@ -9,7 +9,7 @@ import {BaseEditDialogDirective} from "../base-edit-dialog.directive";
     templateUrl: './category-edit-dialog.component.html',
     styleUrls: ['./category-edit-dialog.component.scss']
 })
-export class CategoryEditDialogComponent extends BaseEditDialogDirective<CategoryEditDialogComponent, string> {
+export class CategoryEditDialogComponent extends BaseEditDialogDirective<CategoryEditDialogComponent, string> implements AfterViewInit{
     public form = new FormControl<string>(this.data);
     public categoryOptions: string[] = this.knownCategories;
 

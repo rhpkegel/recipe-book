@@ -9,7 +9,10 @@
       <div class="ingredient-sublist__header">
         <mat-form-field appearance="outline" subscriptSizing=dynamic>
           <mat-label>Ingredienten Subheader</mat-label>
-          <input [id]="'ingredient-'+sublistIndex" type="text" [formControl]="sublist.controls.name" matInput>
+          <input [spellcheck]="true"
+                 [id]="'ingredient-'+sublistIndex" type="text"
+                 [formControl]="sublist.controls.name"
+                 matInput>
         </mat-form-field>
         <button (click)="removeSublist(sublistIndex)" tabindex="-1" mat-icon-button>
           <ng-icon name="heroXMark"></ng-icon>
@@ -68,6 +71,7 @@
              (keydown.control.arrowLeft)="setFocus(sublistIndex,ingredientIndex,1, $event)"
              (keydown.enter)="addIngredient(sublistIndex, ingredientIndex);$event.preventDefault()"
              (keydown.backspace)="onBackspace(sublistIndex, ingredientIndex)"
+             [spellcheck]="true"
              [formControl]="ingredientForm.controls.name" matInput>
     </mat-form-field>
     <div class="ingredient__controls">
