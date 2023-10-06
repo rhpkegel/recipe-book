@@ -1,0 +1,14 @@
+mat-dialog-actions{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-container{
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-dialog-content{
+  max-height: 80vh;
+}

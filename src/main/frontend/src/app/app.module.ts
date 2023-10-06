@@ -39,6 +39,7 @@ import { BaseEditDialogDirective } from './recipe-page/edit-dialogs/base-edit-di
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-contents-page.component';
+import { CategoryEditDialogComponent } from './recipe-page/edit-dialogs/category-edit-dialog/category-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-
     NotesEditDialogComponent,
     BaseEditDialogDirective,
     TableOfContentsPageComponent,
+    CategoryEditDialogComponent,
   ],
     imports: [
         BrowserModule,

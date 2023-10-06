@@ -18,11 +18,16 @@
   <div class="step-background"></div>
 
   <div class="header">
-    <div class="title selectable" (click)="openTitleDialog()"
-         [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}</div>
+    <div class="title-row">
+      <div class="title selectable" (click)="openTitleDialog()"
+           [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}
+      </div>
+      <div class="category selectable" (click)="openCategoryDialog()">{{recipe.category ? recipe.category : 'categorie  toevoegen...'}}</div>
+    </div>
+
     <div class="time selectable" (click)="openTimeDialog()">
-      <div class="cook-time">Cook time: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes + ' min' : '-'}}</div>
-      <div class="servings">Servings: {{recipe.servings ? recipe.servings : '-'}}</div>
+      <div class="cook-time">Kooktijd: {{recipe.cookTimeMinutes ? recipe.cookTimeMinutes + ' min' : '-'}}</div>
+      <div class="servings">Porties: {{recipe.servings ? recipe.servings : '-'}}</div>
     </div>
     <div (click)="openTagDialog()"
          class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
@@ -53,6 +58,8 @@
     <div class="chefs-notes__content">{{recipe.notes ? recipe.notes : '-'}}</div>
     <div class="chefs-notes__background" [ngStyle]="{fontSize: fontSize*2+'px'}">Chef's notes</div>
   </div>
+  <div class="footer">
+    <div class="page-number">{{pageIndex}}</div></div>
 </div>
 
 <ng-template #noIngredients>

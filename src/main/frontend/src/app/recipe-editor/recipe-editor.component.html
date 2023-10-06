@@ -49,11 +49,13 @@
                                   [width]="recipeWidth"/>
       <app-recipe-page *ngIf="this.activeRecipeIndex >= 0"
                        [recipe]="this.recipes[this.activeRecipeIndex]"
+                       [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex]) + recipeIndexOffset"
                        (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
                        [width]="recipeWidth"
       ></app-recipe-page>
       <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex !== 0"
                        [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
+                       [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex+1]) + recipeIndexOffset"
                        (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
                        [width]="recipeWidth"
       ></app-recipe-page>

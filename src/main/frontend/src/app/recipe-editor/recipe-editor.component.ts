@@ -14,8 +14,9 @@ export class RecipeEditorComponent {
 
   public printing = false;
   public recipeWidth = 30;
-  doublePage: boolean = true;
-  selectedRecipes: File[] | undefined;
+  public doublePage: boolean = true;
+  public selectedRecipes: File[] | undefined;
+  public recipeIndexOffset: number = 2;
 
   public get selectedRecipe(): Recipe {
     return this.recipes[this.activeRecipeIndex];

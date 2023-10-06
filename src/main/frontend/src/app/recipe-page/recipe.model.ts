@@ -3,6 +3,7 @@ import {IngredientSublist} from "./ingredient.model";
 export interface Recipe {
   id?: number;
   title: string;
+  category?: string;
   tags?: string[];
   steps?: string[];
   ingredients: IngredientSublist[];
@@ -109,10 +110,11 @@ export const exampleRecipe: Recipe = {
       }
     ]
   }],
+  category: 'Main Dish',
   prepTimeMinutes: 30,
   cookTimeMinutes: 120,
   servings: 6,
-  tags: ['Main dish', 'beef', 'pasta', 'slow cooking'],
+  tags: ['beef', 'pasta', 'slow cooking'],
   steps: [
     'Season beef with salt and black pepper. Heat vegetable oil in large skillet over high heat; cook and stir beef in hot oil in batches until browned on all sides, about 5 minutes per batch. Transfer to a large stockpot and reserve drippings in the skillet.',
     'Return skillet to medium heat; stir onions into the reservedc drippings, drizzle olive oil over onions, seaosn with 1/2 teaspoon salt and cook until onion has softened, about 5 minutes. Transfer to the stockpot with beef.',

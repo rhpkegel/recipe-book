@@ -10,6 +10,7 @@ import {IngredientSublist} from "./ingredient.model";
 import {StepEditDialogComponent} from "./edit-dialogs/step-edit-dialog/step-edit-dialog.component";
 import {retry} from "rxjs";
 import {NotesEditDialogComponent} from "./edit-dialogs/notes-edit-dialog/notes-edit-dialog.component";
+import {CategoryEditDialogComponent} from "./edit-dialogs/category-edit-dialog/category-edit-dialog.component";
 
 @Component({
   selector: 'app-recipe-page',
@@ -24,11 +25,13 @@ export class RecipePageComponent {
   public width: number = 50;
   @Input()
   public knownTags: string[] = [];
+  @Input()
+  public pageIndex: number = -1;
 
   @Output()
   public pageClicked: EventEmitter<void> = new EventEmitter<void>();
-  public fontSize: number = 16;
 
+  public fontSize: number = 16;
   private activeDialogRef: MatDialogRef<any> | undefined;
 
   constructor(private dialog: MatDialog) {
@@ -73,11 +76,12 @@ export class RecipePageComponent {
       width: '30rem',
       maxHeight: '65rem',
       data: this.recipe?.tags ? this.recipe?.tags : [],
-      disableClose: true
+      disableClose: true,
+      autoFocus: false
     });
     this.activeDialogRef.afterClosed().subscribe((returnData: string[]) => {
       if (this.recipe) {
-        this.recipe.tags = returnData;
+        this.recipe.tags = [...new Set(returnData)];
       }
     });
   }
@@ -114,6 +118,18 @@ export class RecipePageComponent {
     this.activeDialogRef.afterClosed().subscribe((returnData: string) => {
       if (this.recipe) {
         this.recipe.notes = returnData;
+      }
+    });
+  }
+
+  openCategoryDialog() {
+    this.activeDialogRef = this.dialog.open(CategoryEditDialogComponent, {
+      data: this.recipe?.category ? this.recipe.category : '',
+      disableClose: true
+    });
+    this.activeDialogRef.afterClosed().subscribe((returnData: string) => {
+      if (this.recipe) {
+        this.recipe.category = returnData;
       }
     });
   }
