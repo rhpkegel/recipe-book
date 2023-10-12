@@ -27,6 +27,8 @@ export class RecipePageComponent {
   public knownTags: string[] = [];
   @Input()
   public pageIndex: number = -1;
+  @Input()
+  public activeSearchTerm: string | null = null;
 
   @Output()
   public pageClicked: EventEmitter<void> = new EventEmitter<void>();

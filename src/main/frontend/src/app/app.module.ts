@@ -40,6 +40,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-contents-page.component';
 import { CategoryEditDialogComponent } from './recipe-page/edit-dialogs/category-edit-dialog/category-edit-dialog.component';
+import { HighlightPipe } from './highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CategoryEditDialogComponent } from './recipe-page/edit-dialogs/category
     BaseEditDialogDirective,
     TableOfContentsPageComponent,
     CategoryEditDialogComponent,
+    HighlightPipe,
   ],
     imports: [
         BrowserModule,

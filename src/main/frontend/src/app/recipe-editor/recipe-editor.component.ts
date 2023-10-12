@@ -29,7 +29,8 @@ export class RecipeEditorComponent {
             lowerSearchTerms.every( term =>
             this.includesTitle(r, term) ||
             this.includesTag(r, term) ||
-            this.includesIngredient(r, term)))
+            this.includesIngredient(r, term) ||
+            this.includesCategory(r, term)))
     } else {
       return this. recipes;
     }
@@ -46,9 +47,17 @@ export class RecipeEditorComponent {
     else return false;
   }
 
+  private includesCategory(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.category){
+      return recipe.category.toLowerCase().includes(searchTerm);
+    }
+    else return false;
+  }
+
   private includesIngredient(recipe: Recipe, searchTerm: string): boolean{
     if(recipe.ingredients){
       return recipe.ingredients
+          // @ts-ignore
           .flatMap((x: IngredientSublist) => x.ingredients)
           .findIndex((ingredient: Ingredient) => ingredient.name.toLowerCase().includes(searchTerm)) >= 0
     }

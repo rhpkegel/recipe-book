@@ -22,7 +22,7 @@
       <div class="title selectable" (click)="openTitleDialog()"
            [ngStyle]="{fontSize: fontSize*2+'px'}">{{recipe.title ? recipe.title : '-'}}
       </div>
-      <div class="category selectable" (click)="openCategoryDialog()">{{recipe.category ? recipe.category : 'categorie  toevoegen...'}}</div>
+      <div class="category selectable" (click)="openCategoryDialog()" [innerHTML]="recipe.category ? (recipe.category | highlight : activeSearchTerm) : 'categorie  toevoegen...'"></div>
     </div>
 
     <div class="time selectable" (click)="openTimeDialog()">
@@ -30,7 +30,7 @@
       <div class="servings">Porties: {{recipe.servings ? recipe.servings : '-'}}</div>
     </div>
     <div (click)="openTagDialog()"
-         class="tags selectable">{{(recipe.tags && recipe.tags.length > 0) ? recipe.tags.join(', ') : '-'}}</div>
+         class="tags selectable" [innerHTML]="(recipe.tags && recipe.tags.length > 0) ? (recipe.tags.join(', ') | highlight: activeSearchTerm) : '-'"></div>
   </div>
   <div class="recipe-content">
     <div (click)="openIngredientsDialog()" class="ingredients selectable">
@@ -41,7 +41,7 @@
               {{ingredientSublist.name}}
             </div>
             <div class="ingredient"
-                 *ngFor="let ingredient of ingredientSublist.ingredients">{{ingredient.amount}} {{ingredient | formatUnit}} {{ingredient.name}}</div>
+                 *ngFor="let ingredient of ingredientSublist.ingredients">{{ingredient.amount}} {{ingredient | formatUnit}} <div [style.display]="'inline'" [innerHTML]="ingredient.name | highlight : activeSearchTerm"></div></div>
           </div>
         </ng-container>
       </ng-container>
@@ -54,9 +54,9 @@
         </ng-container>
     </div>
   </div>
-  <div (click)="openNotesDialog()" class="chefs-notes selectable">
-    <div class="chefs-notes__content">{{recipe.notes ? recipe.notes : '-'}}</div>
-    <div class="chefs-notes__background" [ngStyle]="{fontSize: fontSize*2+'px'}">Chef's notes</div>
+  <div (click)="openNotesDialog()" class="chefs-notes selectable" [ngClass]="{'empty': !recipe.notes}">
+    <div *ngIf="recipe.notes" class="chefs-notes__content--filled">{{recipe.notes}}</div>
+    <div *ngIf="!recipe.notes" class="chefs-notes__content--empty">{{'Chefs notes toevoegen...'}}</div>
   </div>
   <div class="footer">
     <div class="page-number">{{pageIndex}}</div></div>

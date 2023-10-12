@@ -37,9 +37,6 @@
         </mat-form-field>
         <div class="recipe-list__header__title-row">
         <div class="title">Recepten</div>
-        <button class="sort-button" (click)="sortRecipes()">
-          <ng-icon name="heroRectangleStack"/>
-        </button>
         </div>
       </div>
       <div class="recipe-list__row"
@@ -47,7 +44,7 @@
            (click)="this.activeRecipeIndex=i"
            *ngFor="let recipe of filteredRecipes; index as i"
            cdkDrag>
-        {{recipe.title ? recipe.title : 'Untitled Recipe'}}
+        <div [innerHTML]="this.recipe.title ? (this.recipe.title | highlight : searchString.value) : 'Naamloos recept'"></div>
         <button (click)="deleteRecipe(i)" mat-icon-button>X</button>
       </div>
     </div>
@@ -61,12 +58,14 @@
                        [recipe]="this.recipes[this.activeRecipeIndex]"
                        [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex]) + recipeIndexOffset"
                        (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
+                       [activeSearchTerm]="searchString.value"
                        [width]="recipeWidth"
       ></app-recipe-page>
       <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex !== 0"
                        [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
                        [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex+1]) + recipeIndexOffset"
                        (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
+                       [activeSearchTerm]="searchString.value"
                        [width]="recipeWidth"
       ></app-recipe-page>
     </ng-container>
@@ -75,6 +74,7 @@
         <app-table-of-contents-page [width]="49"/>
         <app-recipe-page
           [recipe]="recipes[0]"
+          [pageIndex]="recipeIndexOffset"
           [width]="49"
         ></app-recipe-page>
       </div>
@@ -83,10 +83,12 @@
           <div class="print-row">
             <app-recipe-page
               [recipe]="recipes[i+1]"
+              [pageIndex]="i+1 + recipeIndexOffset"
               [width]="49"
             ></app-recipe-page>
             <app-recipe-page
               [recipe]="recipes[i+2]"
+              [pageIndex]="i+2 + recipeIndexOffset"
               [width]="49"
             ></app-recipe-page>
           </div>
