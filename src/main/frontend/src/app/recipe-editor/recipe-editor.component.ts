@@ -11,16 +11,21 @@ import {Ingredient, IngredientSublist} from "../recipe-page/ingredient.model";
   styleUrls: ['./recipe-editor.component.scss']
 })
 export class RecipeEditorComponent {
-  public activeRecipeIndex = 0;
+  public activeRecipeIndex = -1;
   public recipes: Recipe[] = this.recipeService.getRecipes();
-  public cookbookTitle = new FormControl(this.recipes[this.activeRecipeIndex].title);
+  public cookbookTitle = new FormControl('Untitled');
   public searchString = new FormControl('');
 
   public printing = false;
   public recipeWidth = 30;
   public doublePage: boolean = true;
   public selectedRecipes: File[] | undefined;
-  public recipeIndexOffset: number = 2;
+  public recipeIndexOffset: number = 1;
+  public indexPageSize = 44;
+
+  get indexPageCount(): number{
+    return Math.ceil(this.recipes.length/this.indexPageSize);
+  }
   get filteredRecipes(): Recipe[]{
     if (this.searchString.value) {
       const lowerSearchTerms = this.searchString.value.toLowerCase().split(/\s+/);
@@ -115,7 +120,6 @@ export class RecipeEditorComponent {
     var a = document.createElement('a');
     a.href = uri;
     a.download = this.cookbookTitle.value ? this.cookbookTitle.value : 'Cookbook'
-    console.log(a.href, a.download)
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -151,8 +155,5 @@ export class RecipeEditorComponent {
     this.activeRecipeIndex = -1;
   }
 
-  sortRecipes() {
-    this.recipes = this.recipes.sort((a,b)=> a.title.localeCompare(b.title));
-    this.recipeService.setRecipes(this.recipes);
-  }
+  protected readonly Array = Array;
 }

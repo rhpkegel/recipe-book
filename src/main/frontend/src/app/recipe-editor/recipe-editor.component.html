@@ -13,7 +13,7 @@
       <ng-icon name="heroQueueList"></ng-icon>
     </button>
     <div class="arrow-navigation">
-      <button [disabled]="activeRecipeIndex <= 0" (click)="activeRecipeIndex = activeRecipeIndex-1">
+      <button [disabled]="activeRecipeIndex <= 0 - indexPageCount" (click)="activeRecipeIndex = activeRecipeIndex-1">
         <ng-icon name="heroArrowLeft"></ng-icon>
       </button>
       <button [disabled]="activeRecipeIndex + 1 >= recipes.length" (click)="activeRecipeIndex = activeRecipeIndex+1">
@@ -52,7 +52,15 @@
 
   <div class="content">
     <ng-container *ngIf="!printing">
-      <app-table-of-contents-page *ngIf="(doublePage && this.activeRecipeIndex === 0) || (this.activeRecipeIndex < 0)"
+      <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0 && this.activeRecipeIndex >= -this.indexPageCount)"
+                                  [indexPageNumber]="activeRecipeIndex -1"
+                                  [indexPageSize]="indexPageSize"
+                                  [indexPageCount]="indexPageCount"
+                                  [width]="recipeWidth"/>
+      <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0)"
+                                  [indexPageNumber]="activeRecipeIndex"
+                                  [indexPageSize]="indexPageSize"
+                                  [indexPageCount]="indexPageCount"
                                   [width]="recipeWidth"/>
       <app-recipe-page *ngIf="this.activeRecipeIndex >= 0"
                        [recipe]="this.recipes[this.activeRecipeIndex]"
@@ -61,7 +69,7 @@
                        [activeSearchTerm]="searchString.value"
                        [width]="recipeWidth"
       ></app-recipe-page>
-      <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex !== 0"
+      <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex >= 0"
                        [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
                        [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex+1]) + recipeIndexOffset"
                        (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
@@ -70,25 +78,31 @@
       ></app-recipe-page>
     </ng-container>
     <ng-container *ngIf="printing">
-      <div class="print-row">
-        <app-table-of-contents-page [width]="49"/>
-        <app-recipe-page
-          [recipe]="recipes[0]"
-          [pageIndex]="recipeIndexOffset"
-          [width]="49"
-        ></app-recipe-page>
+      <ng-container *ngFor="let recipe of Array(this.indexPageCount); let i = index; let even = even">
+      <div class="print-row" *ngIf="even">
+        <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0 && this.activeRecipeIndex >= -this.indexPageCount)"
+                                    [indexPageNumber]="-(this.indexPageCount -i)"
+                                    [indexPageSize]="indexPageSize"
+                                    [indexPageCount]="indexPageCount"
+                                    [width]="49"/>
+        <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0)"
+                                    [indexPageNumber]="-(this.indexPageCount -i-1)"
+                                    [indexPageSize]="indexPageSize"
+                                    [indexPageCount]="indexPageCount"
+                                    [width]="49"/>
       </div>
-      <ng-container *ngFor="let recipe of (recipes | slice:1); let i = index; let even = even">
+      </ng-container>
+      <ng-container *ngFor="let recipe of recipes; let i = index; let even = even">
         <ng-container *ngIf="even">
           <div class="print-row">
             <app-recipe-page
-              [recipe]="recipes[i+1]"
-              [pageIndex]="i+1 + recipeIndexOffset"
+              [recipe]="recipes[i]"
+              [pageIndex]="i + recipeIndexOffset"
               [width]="49"
             ></app-recipe-page>
             <app-recipe-page
-              [recipe]="recipes[i+2]"
-              [pageIndex]="i+2 + recipeIndexOffset"
+              [recipe]="recipes[i+1]"
+              [pageIndex]="i + 1 + recipeIndexOffset"
               [width]="49"
             ></app-recipe-page>
           </div>

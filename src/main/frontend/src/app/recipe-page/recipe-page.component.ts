@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {exampleRecipe, Recipe} from "./recipe.model";
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {Recipe} from "./recipe.model";
 import {ResizedEvent} from "angular-resize-event";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {TitleEditDialogComponent} from "./edit-dialogs/title-edit-dialog/title-edit-dialog.component";
@@ -8,7 +8,6 @@ import {TagEditDialogComponent} from "./edit-dialogs/tag-edit-dialog/tag-edit-di
 import {IngredientEditDialogComponent} from "./edit-dialogs/ingredient-edit-dialog/ingredient-edit-dialog.component";
 import {IngredientSublist} from "./ingredient.model";
 import {StepEditDialogComponent} from "./edit-dialogs/step-edit-dialog/step-edit-dialog.component";
-import {retry} from "rxjs";
 import {NotesEditDialogComponent} from "./edit-dialogs/notes-edit-dialog/notes-edit-dialog.component";
 import {CategoryEditDialogComponent} from "./edit-dialogs/category-edit-dialog/category-edit-dialog.component";
 
