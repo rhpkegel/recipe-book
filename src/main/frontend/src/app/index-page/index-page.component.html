@@ -1,0 +1,15 @@
+<div class="a5-page-container"
+     [ngStyle]="{
+  width: width+'vw',
+  fontSize: fontSize+'px'
+  }"
+     (resized)="onPageResize($event)">
+    <div *ngIf="indexEntries.length > 0" class="index-header" [ngStyle]="{fontSize: (fontSize*1.5)+'px'}">Index</div>
+    <div class="index-body">
+        <div [class.category]="!entry.pageNumber" *ngFor="let entry of indexEntries" class="entry">
+            {{entry.name}}
+            <div *ngIf="entry.pageNumber" class="entry-ellipsis"></div>
+            {{entry.pageNumber}}
+        </div>
+    </div>
+</div>

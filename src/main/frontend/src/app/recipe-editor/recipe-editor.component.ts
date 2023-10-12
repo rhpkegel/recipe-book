@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {exampleRecipe, exampleRecipeBook, Recipe} from "../recipe-page/recipe.model";
+import {Recipe} from "../recipe-page/recipe.model";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {RecipeService} from "../recipe.service";
 import {FormControl} from "@angular/forms";
 import {Ingredient, IngredientSublist} from "../recipe-page/ingredient.model";
+import {TOC_PAGE_SIZE} from "../table-of-contents-page/table-of-contents-page.component";
+import {INDEX_PAGE_SIZE} from "../index-page/index-page.component";
 
 @Component({
   selector: 'app-recipe-editor',
@@ -21,11 +23,15 @@ export class RecipeEditorComponent {
   public doublePage: boolean = true;
   public selectedRecipes: File[] | undefined;
   public recipeIndexOffset: number = 1;
-  public indexPageSize = 44;
+
+  get tocPageCount(): number{
+    return Math.ceil(this.recipes.length/TOC_PAGE_SIZE);
+  }
 
   get indexPageCount(): number{
-    return Math.ceil(this.recipes.length/this.indexPageSize);
+    return Math.ceil(this.recipeService.getIndexEntries().length/INDEX_PAGE_SIZE);
   }
+
   get filteredRecipes(): Recipe[]{
     if (this.searchString.value) {
       const lowerSearchTerms = this.searchString.value.toLowerCase().split(/\s+/);
@@ -37,44 +43,11 @@ export class RecipeEditorComponent {
             this.includesIngredient(r, term) ||
             this.includesCategory(r, term)))
     } else {
-      return this. recipes;
+      return this.recipes;
     }
   }
 
-  private includesTitle(recipe: Recipe, searchTerm: string): boolean{
-    return recipe.title.toLowerCase().includes(searchTerm);
-  }
-
-  private includesTag(recipe: Recipe, searchTerm: string): boolean{
-    if(recipe.tags){
-      return recipe.tags.findIndex(tag => tag.toLowerCase().includes(searchTerm)) >= 0
-    }
-    else return false;
-  }
-
-  private includesCategory(recipe: Recipe, searchTerm: string): boolean{
-    if(recipe.category){
-      return recipe.category.toLowerCase().includes(searchTerm);
-    }
-    else return false;
-  }
-
-  private includesIngredient(recipe: Recipe, searchTerm: string): boolean{
-    if(recipe.ingredients){
-      return recipe.ingredients
-          // @ts-ignore
-          .flatMap((x: IngredientSublist) => x.ingredients)
-          .findIndex((ingredient: Ingredient) => ingredient.name.toLowerCase().includes(searchTerm)) >= 0
-    }
-    else return false;
-  }
-
-  public get selectedRecipe(): Recipe {
-    return this.recipes[this.activeRecipeIndex];
-  }
-
-  constructor(public recipeService: RecipeService) {
-  }
+  constructor(public recipeService: RecipeService) {}
 
   zoomInRecipe() {
     this.recipeWidth += 10;
@@ -155,5 +128,37 @@ export class RecipeEditorComponent {
     this.activeRecipeIndex = -1;
   }
 
+  showIndex() {
+    this.activeRecipeIndex = this.recipes.length
+  }
+  private includesTitle(recipe: Recipe, searchTerm: string): boolean{
+    return recipe.title.toLowerCase().includes(searchTerm);
+  }
+
+  private includesTag(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.tags){
+      return recipe.tags.findIndex(tag => tag.toLowerCase().includes(searchTerm)) >= 0
+    }
+    else return false;
+  }
+
+  private includesCategory(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.category){
+      return recipe.category.toLowerCase().includes(searchTerm);
+    }
+    else return false;
+  }
+
+  private includesIngredient(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.ingredients){
+      return recipe.ingredients
+          // @ts-ignore
+          .flatMap((x: IngredientSublist) => x.ingredients)
+          .findIndex((ingredient: Ingredient) => ingredient.name.toLowerCase().includes(searchTerm)) >= 0
+    }
+    else return false;
+  }
+
   protected readonly Array = Array;
+  protected readonly Math = Math;
 }

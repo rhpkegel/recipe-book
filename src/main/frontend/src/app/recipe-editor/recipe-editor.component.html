@@ -1,124 +1,146 @@
 <div class="zoom-controls">
-  <div class="sticky-container">
-    <button [disabled]="(recipeWidth >= 50 && doublePage) || (recipeWidth >= 100)" (click)="zoomInRecipe()">
-      <ng-icon name="heroMagnifyingGlassPlus"></ng-icon>
-    </button>
-    <button [disabled]="recipeWidth <= 20" (click)="zoomOutRecipe()">
-      <ng-icon name="heroMagnifyingGlassMinus"></ng-icon>
-    </button>
-    <button (click)="doublePageToggle()">
-      <ng-icon name="heroBookOpen"></ng-icon>
-    </button>
-    <button (click)="showTableOfContents()">
-      <ng-icon name="heroQueueList"></ng-icon>
-    </button>
-    <div class="arrow-navigation">
-      <button [disabled]="activeRecipeIndex <= 0 - indexPageCount" (click)="activeRecipeIndex = activeRecipeIndex-1">
-        <ng-icon name="heroArrowLeft"></ng-icon>
-      </button>
-      <button [disabled]="activeRecipeIndex + 1 >= recipes.length" (click)="activeRecipeIndex = activeRecipeIndex+1">
-        <ng-icon name="heroArrowRight"></ng-icon>
-      </button>
+    <div class="sticky-container">
+        <button [disabled]="(recipeWidth >= 50 && doublePage) || (recipeWidth >= 100)" (click)="zoomInRecipe()">
+            <ng-icon name="heroMagnifyingGlassPlus"></ng-icon>
+        </button>
+        <button [disabled]="recipeWidth <= 20" (click)="zoomOutRecipe()">
+            <ng-icon name="heroMagnifyingGlassMinus"></ng-icon>
+        </button>
+        <button (click)="doublePageToggle()">
+            <ng-icon name="heroBookOpen"></ng-icon>
+        </button>
+        <div class="button-row">
+            <button (click)="showTableOfContents()">
+                <ng-icon name="heroQueueList"></ng-icon>
+            </button>
+            <button (click)="showIndex()">
+                <ng-icon name="heroListBullet"></ng-icon>
+            </button>
+        </div>
+        <div class="button-row">
+            <button [disabled]="activeRecipeIndex <= 0 - tocPageCount"
+                    (click)="activeRecipeIndex = activeRecipeIndex-1">
+                <ng-icon name="heroArrowLeft"></ng-icon>
+            </button>
+            <button [disabled]="activeRecipeIndex + 1 >= recipes.length + + tocPageCount"
+                    (click)="activeRecipeIndex = activeRecipeIndex+1">
+                <ng-icon name="heroArrowRight"></ng-icon>
+            </button>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="container">
-  <div class="sidebar">
-    <div cdkDropList class="recipe-list" (cdkDropListDropped)="drop($event)">
-      <div class="recipe-list__header">
-        <mat-form-field class="cookbook-title" appearance="outline">
-          <mat-label>Kookboek titel</mat-label>
-          <input [spellcheck]="true" [formControl]="cookbookTitle" matInput placeholder="Kookboek titel">
-        </mat-form-field>
-        <mat-form-field class="search" appearance="outline">
-          <mat-label>Zoeken</mat-label>
-          <input [formControl]="searchString" matInput placeholder="Zoeken">
-        </mat-form-field>
-        <div class="recipe-list__header__title-row">
-        <div class="title">Recepten</div>
+    <div class="sidebar">
+        <div cdkDropList class="recipe-list" (cdkDropListDropped)="drop($event)">
+            <div class="recipe-list__header">
+                <mat-form-field class="cookbook-title" appearance="outline">
+                    <mat-label>Kookboek titel</mat-label>
+                    <input [spellcheck]="true" [formControl]="cookbookTitle" matInput placeholder="Kookboek titel">
+                </mat-form-field>
+                <mat-form-field class="search" appearance="outline">
+                    <mat-label>Zoeken</mat-label>
+                    <input [formControl]="searchString" matInput placeholder="Zoeken">
+                </mat-form-field>
+                <div class="recipe-list__header__title-row">
+                    <div class="title">Recepten</div>
+                </div>
+            </div>
+            <div class="recipe-list__row"
+                 [class.active]="i==activeRecipeIndex"
+                 (click)="activeRecipeIndex=i"
+                 *ngFor="let recipe of filteredRecipes; index as i"
+                 cdkDrag>
+                <div [innerHTML]="recipe.title ? (this.recipe.title | highlight : searchString.value) : 'Naamloos recept'"></div>
+                <button (click)="deleteRecipe(i)" mat-icon-button>X</button>
+            </div>
         </div>
-      </div>
-      <div class="recipe-list__row"
-           [class.active]="i==activeRecipeIndex"
-           (click)="this.activeRecipeIndex=i"
-           *ngFor="let recipe of filteredRecipes; index as i"
-           cdkDrag>
-        <div [innerHTML]="this.recipe.title ? (this.recipe.title | highlight : searchString.value) : 'Naamloos recept'"></div>
-        <button (click)="deleteRecipe(i)" mat-icon-button>X</button>
-      </div>
     </div>
-  </div>
 
-  <div class="content">
-    <ng-container *ngIf="!printing">
-      <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0 && this.activeRecipeIndex >= -this.indexPageCount)"
-                                  [indexPageNumber]="activeRecipeIndex -1"
-                                  [indexPageSize]="indexPageSize"
-                                  [indexPageCount]="indexPageCount"
-                                  [width]="recipeWidth"/>
-      <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0)"
-                                  [indexPageNumber]="activeRecipeIndex"
-                                  [indexPageSize]="indexPageSize"
-                                  [indexPageCount]="indexPageCount"
-                                  [width]="recipeWidth"/>
-      <app-recipe-page *ngIf="this.activeRecipeIndex >= 0"
-                       [recipe]="this.recipes[this.activeRecipeIndex]"
-                       [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex]) + recipeIndexOffset"
-                       (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
-                       [activeSearchTerm]="searchString.value"
-                       [width]="recipeWidth"
-      ></app-recipe-page>
-      <app-recipe-page *ngIf="doublePage && this.activeRecipeIndex >= 0"
-                       [recipe]="this.activeRecipeIndex+1 < this.recipes.length ? this.recipes[this.activeRecipeIndex+1] : undefined"
-                       [pageIndex]="this.recipes.indexOf(this.recipes[this.activeRecipeIndex+1]) + recipeIndexOffset"
-                       (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
-                       [activeSearchTerm]="searchString.value"
-                       [width]="recipeWidth"
-      ></app-recipe-page>
-    </ng-container>
-    <ng-container *ngIf="printing">
-      <ng-container *ngFor="let recipe of Array(this.indexPageCount); let i = index; let even = even">
-      <div class="print-row" *ngIf="even">
-        <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0 && this.activeRecipeIndex >= -this.indexPageCount)"
-                                    [indexPageNumber]="-(this.indexPageCount -i)"
-                                    [indexPageSize]="indexPageSize"
-                                    [indexPageCount]="indexPageCount"
-                                    [width]="49"/>
-        <app-table-of-contents-page *ngIf="(this.activeRecipeIndex < 0)"
-                                    [indexPageNumber]="-(this.indexPageCount -i-1)"
-                                    [indexPageSize]="indexPageSize"
-                                    [indexPageCount]="indexPageCount"
-                                    [width]="49"/>
-      </div>
-      </ng-container>
-      <ng-container *ngFor="let recipe of recipes; let i = index; let even = even">
-        <ng-container *ngIf="even">
-          <div class="print-row">
-            <app-recipe-page
-              [recipe]="recipes[i]"
-              [pageIndex]="i + recipeIndexOffset"
-              [width]="49"
+    <div class="content">
+        <ng-container *ngIf="!printing">
+            <app-table-of-contents-page
+                    *ngIf="(activeRecipeIndex < 0 && doublePage && activeRecipeIndex >= -tocPageCount)"
+                    [tocPageNumber]="activeRecipeIndex -1"
+                    [tocPageCount]="tocPageCount"
+                    [width]="recipeWidth"/>
+            <app-table-of-contents-page *ngIf="(activeRecipeIndex < 0)"
+                                        [tocPageNumber]="activeRecipeIndex"
+                                        [tocPageCount]="tocPageCount"
+                                        [width]="recipeWidth"/>
+            <app-recipe-page *ngIf="activeRecipeIndex >= 0 && activeRecipeIndex < recipes.length"
+                             [recipe]="recipes[activeRecipeIndex]"
+                             [pageIndex]="recipes.indexOf(recipes[activeRecipeIndex]) + recipeIndexOffset"
+                             (pageClicked)="activeRecipeIndex = activeRecipeIndex > 0 ? activeRecipeIndex - 1 : activeRecipeIndex"
+                             [activeSearchTerm]="searchString.value"
+                             [width]="recipeWidth"
             ></app-recipe-page>
-            <app-recipe-page
-              [recipe]="recipes[i+1]"
-              [pageIndex]="i + 1 + recipeIndexOffset"
-              [width]="49"
+            <app-recipe-page *ngIf="doublePage && activeRecipeIndex >= 0 && activeRecipeIndex < recipes.length"
+                             [recipe]="activeRecipeIndex+1 < recipes.length ? recipes[activeRecipeIndex+1] : undefined"
+                             [pageIndex]="recipes.indexOf(recipes[activeRecipeIndex+1]) + recipeIndexOffset"
+                             (pageClicked)="activeRecipeIndex = activeRecipeIndex < recipes.length-1 ? activeRecipeIndex + 1 : activeRecipeIndex"
+                             [activeSearchTerm]="searchString.value"
+                             [width]="recipeWidth"
             ></app-recipe-page>
-          </div>
+            <app-index-page
+                    [width]="recipeWidth"
+                    [indexPageNumber]="Math.abs(recipes.length-activeRecipeIndex)"
+                    *ngIf="activeRecipeIndex >= recipes.length"></app-index-page>
+            <app-index-page
+                    [width]="recipeWidth"
+                    [indexPageNumber]="Math.abs(recipes.length-activeRecipeIndex-1)"
+                    *ngIf="activeRecipeIndex >= recipes.length && doublePage"></app-index-page>
         </ng-container>
-      </ng-container>
-    </ng-container>
-  </div>
 
-  <div class="footer">
-    <button mat-button color="primary" (click)="initRecipe()">New recipe</button>
-    <button mat-button color="primary" (click)="fileUpload.click()">
-      Load from disk
-    </button>
-    <input [(ngModel)]="selectedRecipes" (change)="updateCurrentRecipe($event)" #fileUpload type="file" multiple
-           placeholder="-">
-    <button mat-button color="primary" (click)="downloadURI()">Save to disk</button>
-    <button mat-button color="primary" (click)="printRecipe()">Print RecipeBook</button>
-  </div>
+
+        <ng-container *ngIf="printing">
+            <ng-container *ngFor="let recipe of Array(this.tocPageCount); let i = index; let even = even">
+                <div class="print-row" *ngIf="even">
+                    <app-table-of-contents-page
+                            [tocPageNumber]="-(this.tocPageCount -i)"
+                            [tocPageCount]="tocPageCount"
+                            [width]="49"/>
+                    <app-table-of-contents-page [tocPageNumber]="-(this.tocPageCount -i-1)"
+                                                [tocPageCount]="tocPageCount"
+                                                [width]="49"/>
+                </div>
+            </ng-container>
+<!--            <ng-container *ngFor="let recipe of recipes; let i = index; let even = even">-->
+<!--                <ng-container *ngIf="even">-->
+<!--                    <div class="print-row">-->
+<!--                        <app-recipe-page-->
+<!--                                [recipe]="recipes[i]"-->
+<!--                                [pageIndex]="i + recipeIndexOffset"-->
+<!--                                [width]="49"-->
+<!--                        ></app-recipe-page>-->
+<!--                        <app-recipe-page-->
+<!--                                [recipe]="recipes[i+1]"-->
+<!--                                [pageIndex]="i + 1 + recipeIndexOffset"-->
+<!--                                [width]="49"-->
+<!--                        ></app-recipe-page>-->
+<!--                    </div>-->
+<!--                </ng-container>-->
+<!--            </ng-container>-->
+            <ng-container *ngFor="let recipe of Array(indexPageCount); let i = index; let even = even">
+                <div class="print-row" *ngIf="even">
+                    <app-index-page
+                            [indexPageNumber]="i"
+                            [width]="49"/>
+                    <app-index-page [indexPageNumber]="i+1"
+                                                [width]="49"/>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div class="footer">
+        <button mat-button color="primary" (click)="initRecipe()">New recipe</button>
+        <button mat-button color="primary" (click)="fileUpload.click()">
+            Load from disk
+        </button>
+        <input [(ngModel)]="selectedRecipes" (change)="updateCurrentRecipe($event)" #fileUpload type="file" multiple
+               placeholder="-">
+        <button mat-button color="primary" (click)="downloadURI()">Save to disk</button>
+        <button mat-button color="primary" (click)="printRecipe()">Print RecipeBook</button>
+    </div>
 </div>

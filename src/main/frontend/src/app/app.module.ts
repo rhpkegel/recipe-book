@@ -8,15 +8,15 @@ import {FormatUnitPipe} from './recipe-page/format-unit.pipe';
 import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
 import {NgIconsModule} from "@ng-icons/core";
 import {
-  heroArrowLeft,
-  heroArrowRight,
-  heroBookOpen,
-  heroChevronDown, heroChevronUp,
-  heroDocument,
-  heroMagnifyingGlassMinus,
-  heroMagnifyingGlassPlus,
-  heroPlus, heroQueueList, heroRectangleStack,
-  heroXMark
+    heroArrowLeft,
+    heroArrowRight,
+    heroBookOpen,
+    heroChevronDown, heroChevronUp,
+    heroDocument, heroListBullet,
+    heroMagnifyingGlassMinus,
+    heroMagnifyingGlassPlus,
+    heroPlus, heroQueueList, heroRectangleStack,
+    heroXMark
 } from "@ng-icons/heroicons/outline";
 import {AngularResizeEventModule} from "angular-resize-event";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -41,6 +41,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { TableOfContentsPageComponent } from './table-of-contents-page/table-of-contents-page.component';
 import { CategoryEditDialogComponent } from './recipe-page/edit-dialogs/category-edit-dialog/category-edit-dialog.component';
 import { HighlightPipe } from './highlight.pipe';
+import { IndexPageComponent } from './index-page/index-page.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { HighlightPipe } from './highlight.pipe';
     TableOfContentsPageComponent,
     CategoryEditDialogComponent,
     HighlightPipe,
+    IndexPageComponent,
   ],
     imports: [
         BrowserModule,
@@ -74,7 +76,8 @@ import { HighlightPipe } from './highlight.pipe';
             heroQueueList,
             heroArrowLeft,
             heroArrowRight,
-            heroRectangleStack
+            heroRectangleStack,
+            heroListBullet
         }),
         AngularResizeEventModule,
         MatDialogModule,

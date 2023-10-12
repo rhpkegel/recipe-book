@@ -1,0 +1,48 @@
+.a5-page-container {
+  position: relative;
+  page-break-inside: avoid;
+  border: 0.1rem darkgray solid;
+  aspect-ratio: 148/209;
+  box-shadow: rgba(black, 0.1) 0.25rem 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.index-body{
+  column-count: 2;
+  column-fill: auto;
+  height: 90%;
+  margin: 1rem;
+}
+
+.index-header{
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.entry{
+  display: flex;
+  margin: 0.25rem;
+  justify-content: space-between;
+  &.category{
+    font-weight: bold;
+    color: darkslategrey;
+  }
+  &:not(.category){
+    margin-left: 1rem;
+  }
+}
+
+.entry-ellipsis{
+  display: inline;
+  border-bottom: 1px gray dotted;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  flex-grow: 1;
+}
+
+@media print {
+  * {
+    font-size: 10px;
+  }
+}

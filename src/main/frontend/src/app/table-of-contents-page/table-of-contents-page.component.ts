@@ -3,6 +3,8 @@ import {RecipeService} from "../recipe.service";
 import {Recipe} from "../recipe-page/recipe.model";
 import {ResizedEvent} from "angular-resize-event";
 
+export const TOC_PAGE_SIZE = 44;
+
 @Component({
     selector: 'app-table-of-contents-page',
     templateUrl: './table-of-contents-page.component.html',
@@ -10,27 +12,24 @@ import {ResizedEvent} from "angular-resize-event";
 })
 export class TableOfContentsPageComponent implements OnInit{
 
-    private _indexPageNumber: number = 0;
+    private _tocPageNumber: number = 0;
 
     @Input()
     public width: number = 50;
     @Input()
-    public set indexPageNumber(i: number) {
-        this._indexPageNumber = i;
+    public set tocPageNumber(i: number) {
+        this._tocPageNumber = i;
         this.updateRecipes();
     };
-
     @Input()
-    public indexPageSize: number = 0;
-    @Input()
-    public indexPageCount: number = 1;
+    public tocPageCount: number = 1;
 
+    public tocPageSize: number = TOC_PAGE_SIZE;
     public fontSize: number = 16;
-
     public recipes: Recipe[] = [];
 
     public get startRecipeIndex(): number{
-        return (this.indexPageCount + this._indexPageNumber) *this.indexPageSize;
+        return (this.tocPageCount + this._tocPageNumber) *this.tocPageSize;
     }
 
     constructor(private recipeService: RecipeService) {}
@@ -40,8 +39,8 @@ export class TableOfContentsPageComponent implements OnInit{
     }
 
     private updateRecipes(){
-        const pageNumber = this.indexPageCount + this._indexPageNumber;
-        this.recipes = this.recipeService.getRecipes().slice(pageNumber*this.indexPageSize, (pageNumber+1) * this.indexPageSize);
+        const pageNumber = this.tocPageCount + this._tocPageNumber;
+        this.recipes = this.recipeService.getRecipes().slice(pageNumber*this.tocPageSize, (pageNumber+1) * this.tocPageSize);
     }
 
     public onPageResize($event: ResizedEvent) {
