@@ -31,6 +31,10 @@
           <mat-label>Kookboek titel</mat-label>
           <input [spellcheck]="true" [formControl]="cookbookTitle" matInput placeholder="Kookboek titel">
         </mat-form-field>
+        <mat-form-field class="search" appearance="outline">
+          <mat-label>Zoeken</mat-label>
+          <input [formControl]="searchString" matInput placeholder="Zoeken">
+        </mat-form-field>
         <div class="recipe-list__header__title-row">
         <div class="title">Recepten</div>
         <button class="sort-button" (click)="sortRecipes()">
@@ -41,7 +45,7 @@
       <div class="recipe-list__row"
            [class.active]="i==activeRecipeIndex"
            (click)="this.activeRecipeIndex=i"
-           *ngFor="let recipe of recipes; index as i"
+           *ngFor="let recipe of filteredRecipes; index as i"
            cdkDrag>
         {{recipe.title ? recipe.title : 'Untitled Recipe'}}
         <button (click)="deleteRecipe(i)" mat-icon-button>X</button>

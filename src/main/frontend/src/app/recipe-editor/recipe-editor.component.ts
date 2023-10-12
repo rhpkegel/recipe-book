@@ -3,6 +3,7 @@ import {exampleRecipe, exampleRecipeBook, Recipe} from "../recipe-page/recipe.mo
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {RecipeService} from "../recipe.service";
 import {FormControl} from "@angular/forms";
+import {Ingredient, IngredientSublist} from "../recipe-page/ingredient.model";
 
 @Component({
   selector: 'app-recipe-editor',
@@ -13,12 +14,46 @@ export class RecipeEditorComponent {
   public activeRecipeIndex = 0;
   public recipes: Recipe[] = this.recipeService.getRecipes();
   public cookbookTitle = new FormControl(this.recipes[this.activeRecipeIndex].title);
+  public searchString = new FormControl('');
 
   public printing = false;
   public recipeWidth = 30;
   public doublePage: boolean = true;
   public selectedRecipes: File[] | undefined;
   public recipeIndexOffset: number = 2;
+  get filteredRecipes(): Recipe[]{
+    if (this.searchString.value) {
+      const lowerSearchTerms = this.searchString.value.toLowerCase().split(/\s+/);
+      return this.recipes
+        .filter(r =>
+            lowerSearchTerms.every( term =>
+            this.includesTitle(r, term) ||
+            this.includesTag(r, term) ||
+            this.includesIngredient(r, term)))
+    } else {
+      return this. recipes;
+    }
+  }
+
+  private includesTitle(recipe: Recipe, searchTerm: string): boolean{
+    return recipe.title.toLowerCase().includes(searchTerm);
+  }
+
+  private includesTag(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.tags){
+      return recipe.tags.findIndex(tag => tag.toLowerCase().includes(searchTerm)) >= 0
+    }
+    else return false;
+  }
+
+  private includesIngredient(recipe: Recipe, searchTerm: string): boolean{
+    if(recipe.ingredients){
+      return recipe.ingredients
+          .flatMap((x: IngredientSublist) => x.ingredients)
+          .findIndex((ingredient: Ingredient) => ingredient.name.toLowerCase().includes(searchTerm)) >= 0
+    }
+    else return false;
+  }
 
   public get selectedRecipe(): Recipe {
     return this.recipes[this.activeRecipeIndex];
