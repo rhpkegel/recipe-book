@@ -105,22 +105,22 @@
                                                 [width]="49"/>
                 </div>
             </ng-container>
-<!--            <ng-container *ngFor="let recipe of recipes; let i = index; let even = even">-->
-<!--                <ng-container *ngIf="even">-->
-<!--                    <div class="print-row">-->
-<!--                        <app-recipe-page-->
-<!--                                [recipe]="recipes[i]"-->
-<!--                                [pageIndex]="i + recipeIndexOffset"-->
-<!--                                [width]="49"-->
-<!--                        ></app-recipe-page>-->
-<!--                        <app-recipe-page-->
-<!--                                [recipe]="recipes[i+1]"-->
-<!--                                [pageIndex]="i + 1 + recipeIndexOffset"-->
-<!--                                [width]="49"-->
-<!--                        ></app-recipe-page>-->
-<!--                    </div>-->
-<!--                </ng-container>-->
-<!--            </ng-container>-->
+            <ng-container *ngFor="let recipe of recipes; let i = index; let even = even">
+                <ng-container *ngIf="even">
+                    <div class="print-row">
+                        <app-recipe-page
+                                [recipe]="recipes[i]"
+                                [pageIndex]="i + recipeIndexOffset"
+                                [width]="49"
+                        ></app-recipe-page>
+                        <app-recipe-page
+                                [recipe]="recipes[i+1]"
+                                [pageIndex]="i + 1 + recipeIndexOffset"
+                                [width]="49"
+                        ></app-recipe-page>
+                    </div>
+                </ng-container>
+            </ng-container>
             <ng-container *ngFor="let recipe of Array(indexPageCount); let i = index; let even = even">
                 <div class="print-row" *ngIf="even">
                     <app-index-page
