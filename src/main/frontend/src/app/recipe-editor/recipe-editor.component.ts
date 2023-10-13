@@ -18,7 +18,7 @@ export class RecipeEditorComponent {
   public cookbookTitle = new FormControl('Untitled');
   public searchString = new FormControl('');
 
-  public printing = true;
+  public printing = false;
   public recipeWidth = 30;
   public doublePage: boolean = true;
   public selectedRecipes: File[] | undefined;
