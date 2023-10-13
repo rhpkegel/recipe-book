@@ -23,3 +23,17 @@
   }
 }
 
+@mixin a5-styling{
+  position: relative;
+  page-break-inside: avoid;
+  border: 0.1rem darkgray solid;
+  padding-right: 1rem;
+  aspect-ratio: 148/209;
+  box-shadow: rgba(black, 0.1) 0.25rem 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+
+  @media print{
+    border: 0;
+    box-shadow: initial;
+  }
+}

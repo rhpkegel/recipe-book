@@ -157,6 +157,8 @@
       overflow: visible;
       .print-row{
         display: flex;
+        width: 100%;
+        gap: 1rem;
         page-break-after: always;
       }
     }

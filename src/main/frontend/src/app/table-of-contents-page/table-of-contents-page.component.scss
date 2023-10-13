@@ -1,10 +1,7 @@
+@use "src/mixins" as mixins;
+
 .a5-page-container {
-  position: relative;
-  page-break-inside: avoid;
-  border: 0.1rem darkgray solid;
-  aspect-ratio: 148/209;
-  box-shadow: rgba(black, 0.1) 0.25rem 0.25rem 0.75rem;
-  border-radius: 0.25rem;
+  @include  mixins.a5-styling;
 }
 
 .toc-header{
