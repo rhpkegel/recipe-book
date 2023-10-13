@@ -30,7 +30,7 @@
       <div class="servings">Porties: {{recipe.servings ? recipe.servings : '-'}}</div>
     </div>
     <div (click)="openTagDialog()"
-         class="tags selectable" [innerHTML]="(recipe.tags && recipe.tags.length > 0) ? (recipe.tags.join(', ') | highlight: activeSearchTerm) : '-'"></div>
+         class="tags selectable" [class.empty]="!recipe.tags || recipe.tags?.length === 0" [innerHTML]="(recipe.tags && recipe.tags.length > 0) ? (recipe.tags.join(', ') | highlight: activeSearchTerm) : '-'"></div>
   </div>
   <div class="recipe-content">
     <div (click)="openIngredientsDialog()" class="ingredients selectable">
